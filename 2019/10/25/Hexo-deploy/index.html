@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="手册集">
 <meta property="og:description" content="使用Hexo部署上传GitHub后我们发现，博客源文件没有上传，处于安全考虑在.gitinore文件中配置忽略了。仅仅将public文件夹内的文件通过hexo d上传到GitHub去了，其他的文件则留在本地目录下。为解决多台电脑需要更新博客和博客部署文件隔离的问题，这里将使用github存放网站静态文件，coding私有仓库存放博客源文件来处理。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-09-08T06:33:20.854Z">
+<meta property="og:updated_time" content="2021-09-08T07:06:22.487Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  261 字
+                  499 字
                 </span>
               
 
@@ -433,10 +433,20 @@
 <a id="more"></a>
 
 <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>确保已经使用hexo在GitHub搭建好了自己的个人博客，步骤参见 <a href="https://xlline.github.io/2019/06/19/Hexo+GitHub/">使用Hexo+GitHub搭建个人博客教程</a></p>
-<h1 id="Coding配置"><a href="#Coding配置" class="headerlink" title="Coding配置"></a>Coding配置</h1><ol>
+<h1 id="参数配置"><a href="#参数配置" class="headerlink" title="参数配置"></a>参数配置</h1><ol>
 <li>注册/登录Coding，<a href="https://coding.net/" target="_blank" rel="noopener">点此进入</a></li>
 <li>新建项目 新建代码仓库</li>
-<li>配置SSH公钥 路径：头像 &gt; 个人账户设置 &gt; SSH公钥 &gt; 新增公钥</li>
+<li>配置SSH公钥 路径：头像 &gt; 个人账户设置 &gt; SSH公钥 &gt; 新增公钥 <!-- 本地公钥路径 C:\Users\Administrator\.ssh\id_rsa.pub --></li>
+<li>新建代码仓库 git clone到本地</li>
+<li>将本地博客代码copy过来 修改<code>.gitinore</code>文件如下<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br></pre></td></tr></tbody></table></figure></li>
+<li>将themes目录以内中的主题的.git目录删除（如果有），因为一个git仓库中不能包含另一个git仓库，提交主题文件夹会失败。<!-- 删除了themes目录中的.git不就不能git pull更新主题了吗，很简单，需要更新主题时在另一个地方git clone下来该主题的最新版本，然后将内容拷到当前主题目录即可。 --></li>
+<li>使用git提交变动到Coding仓库。<br>完成后就可以在当前目录进行正常博客更新与维护了。此时我们的静态文件会在执行<code>hexo d</code>时被上传到GitHub，不要忘记使用git命令上传到coding对应仓库。</li>
+</ol>
+<h1 id="当存在新电脑"><a href="#当存在新电脑" class="headerlink" title="当存在新电脑"></a>当存在新电脑</h1><ol>
+<li>将新电脑生成的SSH KEY分别添加到GitHub和Coding中</li>
+<li>在新电脑上将Coding中存放Hexo源码的仓库clone到本地</li>
+<li>执行<code>npm install</code></li>
+<li>可以进行博客文章的编辑和新增了。完成后使用git提交源文件变动到Coding，使用<code>hexo g &amp;&amp; hexo d</code>更新静态文件到GitHub。</li>
 </ol>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -475,7 +485,7 @@
   <p><span>本文标题:</span><a href="/2019/10/25/Hexo-deploy/">实现Hexo博客多地更新和配置博客源文件</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 xugz 的个人博客">xugz</a></p>
   <p><span>发布时间:</span>2019年10月25日 - 14:51</p>
-  <p><span>最后更新:</span>2021年09月08日 - 14:33</p>
+  <p><span>最后更新:</span>2021年09月08日 - 15:06</p>
   <p><span>原始链接:</span><a href="/2019/10/25/Hexo-deploy/" title="实现Hexo博客多地更新和配置博客源文件">https://xlline.github.io/2019/10/25/Hexo-deploy/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://xlline.github.io/2019/10/25/Hexo-deploy/"  aria-label="复制成功！"></i></span>
   </p>
@@ -689,7 +699,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Coding配置"><span class="nav-number">2.</span> <span class="nav-text">Coding配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参数配置"><span class="nav-number">2.</span> <span class="nav-text">参数配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当存在新电脑"><span class="nav-number">3.</span> <span class="nav-text">当存在新电脑</span></a></li></ol></div>
             
 
           </div>
@@ -731,7 +741,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 35k 字</span>
+  <span class="post-count">全站共 35.2k 字</span>
 </div>
         
 
