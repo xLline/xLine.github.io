@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  209 字
+                  261 字
                 </span>
               
 
@@ -438,7 +438,25 @@
 <li>新建项目 新建代码仓库</li>
 <li>配置SSH公钥 路径：头像 &gt; 个人账户设置 &gt; SSH公钥 &gt; 新增公钥</li>
 </ol>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
       
     </div>
     
@@ -713,7 +731,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 34.9k 字</span>
+  <span class="post-count">全站共 35k 字</span>
 </div>
         
 
