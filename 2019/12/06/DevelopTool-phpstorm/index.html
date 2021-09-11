@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="PHPStorm," />
+  <meta name="keywords" content="IDE,PHPStorm," />
 
 
 
@@ -87,20 +87,20 @@
 
 
 <meta name="description" content="想要在Windows开发可偏偏有拓展包依赖于Linux？也不想使用samba进行网络映射挂载虚拟盘？那这里还有一个方法，使用PHPstorm配置下下就可以。当前我的环境在Vmware，基于centos7使用Docker搭建的。具体步骤见详情。">
-<meta name="keywords" content="PHPStorm">
+<meta name="keywords" content="IDE,PHPStorm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于win+PHPStorm+Linux的推荐开发环境配置">
 <meta property="og:url" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;index.html">
 <meta property="og:site_name" content="手册集">
 <meta property="og:description" content="想要在Windows开发可偏偏有拓展包依赖于Linux？也不想使用samba进行网络映射挂载虚拟盘？那这里还有一个方法，使用PHPstorm配置下下就可以。当前我的环境在Vmware，基于centos7使用Docker搭建的。具体步骤见详情。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;.io&#x2F;&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;setting_1.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;.io&#x2F;&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;setting_2.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;.io&#x2F;&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;setting_3.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;.io&#x2F;&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;setting_4.png">
-<meta property="og:updated_time" content="2019-12-09T01:18:40.000Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;setting_1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;setting_2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;setting_3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;setting_4.png">
+<meta property="og:updated_time" content="2021-09-11T08:19:22.549Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;.io&#x2F;&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;setting_1.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;12&#x2F;06&#x2F;DevelopTool-phpstorm&#x2F;setting_1.png">
 
 
 
@@ -354,30 +354,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8B%BE%E7%BA%A7%E8%80%8C%E4%B8%8A/" itemprop="url" rel="index">
-                    <span itemprop="name">拾级而上</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8B%BE%E7%BA%A7%E8%80%8C%E4%B8%8A/PHP/" itemprop="url" rel="index">
-                    <span itemprop="name">PHP</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8B%BE%E7%BA%A7%E8%80%8C%E4%B8%8A/PHP/PHPStorm/" itemprop="url" rel="index">
-                    <span itemprop="name">PHPStorm</span>
+                  <a href="/categories/IDE/" itemprop="url" rel="index">
+                    <span itemprop="name">IDE</span>
                   </a>
                 </span>
 
@@ -449,16 +427,16 @@
 <a id="more"></a>
 
 <p><strong>虚拟机部分</strong><br>使用非Root账户创建一个空文件夹<br>设置SSH权限和密码，确保本地可以正常连接到虚拟机。不清楚的话可以参考<a href="https://xlline.github.io/2019/10/31/SSH%E7%A7%98%E9%92%A5%E6%93%8D%E4%BD%9C/">点我，我是猴子派来的救兵</a><br>确保当前容器已经正常启动且已实现代码映射到虚拟机<br><strong>主机部分</strong><br>本地我们要新建一个空目录（存放我们即将要同步的代码），使用PHPstorm打开，此时是一个空项目。PHP storm会在我们新建的目录里生成 .idea 文件夹。<br>File-&gt;Settings-&gt;Build,Execution,Deployment中点击Deployment。选择”+”中的SFTP创建新连接，键入你喜欢的连接名。<br>在Connection中填写基础连接配置</p>
-<div style="width: 71%;margin: left"><img src="/.io//12/06/DevelopTool-phpstorm/setting_1.png" class=""></div>
+<div style="width: 71%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_1.png" class=""></div>
 
 <p>在Mappings中填写本地路径和目标路径</p>
-<div style="width: 71%;margin: left"><img src="/.io//12/06/DevelopTool-phpstorm/setting_2.png" class=""></div>
+<div style="width: 71%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_2.png" class=""></div>
 
 <p>在Excluded Paths中填写我们要忽略排除的文件路径</p>
-<div style="width: 71%;margin: left"><img src="/.io//12/06/DevelopTool-phpstorm/setting_3.png" class=""></div>
+<div style="width: 71%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_3.png" class=""></div>
 
 <p>配置完成点击应用就可以啦。在Tools-&gt;Deployment下选择Upload to swoole(这里的swoole是你创建的连接名，我本地是swoole)手动上传到远端，选择Automatic Upload(always)自动上传。</p>
-<div style="width: 61%;margin: left"><img src="/.io//12/06/DevelopTool-phpstorm/setting_4.png" class=""></div>
+<div style="width: 61%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_4.png" class=""></div>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -496,7 +474,7 @@
   <p><span>本文标题:</span><a href="/2019/12/06/DevelopTool-phpstorm/">基于win+PHPStorm+Linux的推荐开发环境配置</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 xugz 的个人博客">xugz</a></p>
   <p><span>发布时间:</span>2019年12月06日 - 14:01</p>
-  <p><span>最后更新:</span>2019年12月09日 - 09:18</p>
+  <p><span>最后更新:</span>2021年09月11日 - 16:19</p>
   <p><span>原始链接:</span><a href="/2019/12/06/DevelopTool-phpstorm/" title="基于win+PHPStorm+Linux的推荐开发环境配置">https://xlline.github.io/2019/12/06/DevelopTool-phpstorm/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://xlline.github.io/2019/12/06/DevelopTool-phpstorm/"  aria-label="复制成功！"></i></span>
   </p>
@@ -537,6 +515,8 @@
       
         <div class="post-tags">
           
+            <a href="/tags/IDE/" rel="tag"><i class="fa fa-tag"></i> IDE</a>
+          
             <a href="/tags/PHPStorm/" rel="tag"><i class="fa fa-tag"></i> PHPStorm</a>
           
         </div>
@@ -550,8 +530,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/03/Docker-samba/" rel="next" title="docker配置Samba文件共享服务">
-                <i class="fa fa-chevron-left"></i> docker配置Samba文件共享服务
+              <a href="/2019/12/03/Docker-samba/" rel="next" title="Docker配置Samba文件共享服务">
+                <i class="fa fa-chevron-left"></i> Docker配置Samba文件共享服务
               </a>
             
           </div>
@@ -560,8 +540,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/05/16/Redis-config/" rel="prev" title="Redis集群配置">
-                Redis集群配置 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/11/Git-base/" rel="prev" title="Git常用命令整理">
+                Git常用命令整理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -630,7 +610,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -641,7 +621,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -652,7 +632,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -727,7 +707,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 35.2k 字</span>
+  <span class="post-count">全站共 36.7k 字</span>
 </div>
         
 

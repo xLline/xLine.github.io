@@ -94,11 +94,11 @@
 <meta property="og:site_name" content="手册集">
 <meta property="og:description" content="Docker Machine是简化的Docker安装的命令行工具,通过命令行即可在相应的平台上(目前支持在本机运行virtualbox虚拟主机，Hyper-V虚拟主机，VMware虚拟主机，AWS EC2，Azure，DigitalOcean，Google等公有云主机)安装Docker。（好比在你机器上装个虚拟机，老外帮你准备好了专门的ISO，docker 都帮你弄好了） 本篇主要涉及Docker">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;.io&#x2F;&#x2F;11&#x2F;28&#x2F;Docker-Machine&#x2F;create.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;11&#x2F;28&#x2F;Docker-Machine&#x2F;create.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;11&#x2F;28&#x2F;Docker-Machine&#x2F;error_https.png">
-<meta property="og:updated_time" content="2019-11-29T09:04:24.000Z">
+<meta property="og:updated_time" content="2021-09-11T08:16:10.584Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;.io&#x2F;&#x2F;11&#x2F;28&#x2F;Docker-Machine&#x2F;create.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;11&#x2F;28&#x2F;Docker-Machine&#x2F;create.png">
 
 
 
@@ -352,18 +352,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8B%BE%E7%BA%A7%E8%80%8C%E4%B8%8A/" itemprop="url" rel="index">
-                    <span itemprop="name">拾级而上</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8B%BE%E7%BA%A7%E8%80%8C%E4%B8%8A/Docker/" itemprop="url" rel="index">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
                     <span itemprop="name">Docker</span>
                   </a>
                 </span>
@@ -442,7 +431,7 @@
 <h1 id="创建Docker主机"><a href="#创建Docker主机" class="headerlink" title="创建Docker主机"></a>创建Docker主机</h1><p>首先我们需要安装virtualbox <a href="https://www.virtualbox.org/wiki/Linux_Downloads" target="_blank" rel="noopener">官方下载地址点我</a>。选择对应版本的rpm下载包，通过ftp方式拷贝到服务器，进行<code>yum install &lt;包名&gt; -y</code> 安装即可。同时，oracle也告诉我们存在其他方法 <a href="http://yum.oracle.com/getting-started.html" target="_blank" rel="noopener">参考地址</a>，如下</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget   http://yum.oracle.com/public-yum-ol7.repo</span><br><span class="line">然后把下载下来的文件拷贝到/etc/yum.repos.d中</span><br><span class="line">yum install VirtualBox-5.2</span><br></pre></td></tr></tbody></table></figure>
 <p><a href="https://docs.docker.com/machine/drivers/virtualbox/" target="_blank" rel="noopener">创建Docker主机安装virtualbox参考地址</a><br>完成可以执行 <code>docker-machine create --driver=virtualbox vbox-test</code> 创建。<br>执行该命令，他首先检查 /home/xugz/.docker/machine/cache 是否存在，没有则创建文件夹；然后寻找该文件夹下是否有 boot2docker.iso文件（一个基于Tiny Core Linux的系统，里面Docker啥的都帮你搞定了），另外会默认会创建一个虚拟网卡 （vboxnet0）。所以如果太慢，我们可以去<a href="https://github.com/boot2docker/boot2docker/releases/" target="_blank" rel="noopener">boot2docker.iso对应gitHub下载地址</a>手工下载用ftp传到目标服务器再执行创建。</p>
-<div style="width: 61%;margin: left"><img src="/.io//11/28/Docker-Machine/create.png" class=""></div>
+<div style="width: 61%;margin: left"><img src="/2019/11/28/Docker-Machine/create.png" class=""></div>
 
 <h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>查看列表 <code>docker-machine ls</code><br>查看IP地址 <code>docker-machine ip 虚拟机名称</code><br>停止和开启 <code>docker-machine stop/start  虚拟机名称</code><br>查看环境变量 <code>docker-machine env vbox-test</code><br> 如果我们要操作machine里面的docker环境变量 ,可以不用进入到虚拟机<br> 使用eval命令（可以读取一连串的参数,然后按照参数特性来执行）<br> 此时我们执行 <code>eval $(docker-machine env vbox-test)</code><br> 这时我们本机的docker客户端就连接了vbox-test的docker服务端<br> 切换回来使用命令 <code>eval $(docker-machine env -u)</code><br>SSH的方式连接到虚拟机 <code>docker-machine ssh 虚拟机名称</code></p>
 <h1 id="移植主机镜像到虚拟机"><a href="#移植主机镜像到虚拟机" class="headerlink" title="移植主机镜像到虚拟机"></a>移植主机镜像到虚拟机</h1><p><strong>创建私有镜像库</strong></p>
@@ -498,7 +487,7 @@
   <p><span>本文标题:</span><a href="/2019/11/28/Docker-Machine/">Docker-Machine</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 xugz 的个人博客">xugz</a></p>
   <p><span>发布时间:</span>2019年11月28日 - 15:40</p>
-  <p><span>最后更新:</span>2019年11月29日 - 17:04</p>
+  <p><span>最后更新:</span>2021年09月11日 - 16:16</p>
   <p><span>原始链接:</span><a href="/2019/11/28/Docker-Machine/" title="Docker-Machine">https://xlline.github.io/2019/11/28/Docker-Machine/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://xlline.github.io/2019/11/28/Docker-Machine/"  aria-label="复制成功！"></i></span>
   </p>
@@ -641,7 +630,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -652,7 +641,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -663,7 +652,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -754,7 +743,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 35.2k 字</span>
+  <span class="post-count">全站共 36.7k 字</span>
 </div>
         
 

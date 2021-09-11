@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Git bash,Windows,tasklist,taskkill," />
+  <meta name="keywords" content="Git,taskkill," />
 
 
 
@@ -86,19 +86,19 @@
 
 
 
-<meta name="description" content="使用Git bash未正常退出后，再次打开出现 Git bash Error: Could not fork child process: There are no available terminals (-1)报错。可以使用 tasklist命令 找到git-bash.exe和node.exe对应进程号后，使用taskkill结束进程即可。  win+r调出运行键入cmd后回车打开，使用tas">
-<meta name="keywords" content="Git bash,Windows,tasklist,taskkill">
+<meta name="description" content="使用Git bash未正常退出后，再次打开出现 Git bash Error: Could not fork child process: There are no available terminals (-1)报错。可以使用 tasklist命令 找到git-bash.exe和node.exe对应进程号后，使用taskkill结束进程即可。">
+<meta name="keywords" content="Git,taskkill">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git bash Error:Could not fork child process:There are no available terminals (-1)">
 <meta property="og:url" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;10&#x2F;25&#x2F;Gitbash_error&#x2F;index.html">
 <meta property="og:site_name" content="手册集">
-<meta property="og:description" content="使用Git bash未正常退出后，再次打开出现 Git bash Error: Could not fork child process: There are no available terminals (-1)报错。可以使用 tasklist命令 找到git-bash.exe和node.exe对应进程号后，使用taskkill结束进程即可。  win+r调出运行键入cmd后回车打开，使用tas">
+<meta property="og:description" content="使用Git bash未正常退出后，再次打开出现 Git bash Error: Could not fork child process: There are no available terminals (-1)报错。可以使用 tasklist命令 找到git-bash.exe和node.exe对应进程号后，使用taskkill结束进程即可。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;.io&#x2F;&#x2F;10&#x2F;25&#x2F;Gitbash_error&#x2F;tasklist_ret.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;.io&#x2F;&#x2F;10&#x2F;25&#x2F;Gitbash_error&#x2F;taskkill_ret.png">
-<meta property="og:updated_time" content="2019-10-25T09:55:10.000Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;10&#x2F;25&#x2F;Gitbash_error&#x2F;tasklist_ret.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;10&#x2F;25&#x2F;Gitbash_error&#x2F;taskkill_ret.png">
+<meta property="og:updated_time" content="2021-09-11T08:42:42.053Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;.io&#x2F;&#x2F;10&#x2F;25&#x2F;Gitbash_error&#x2F;tasklist_ret.jpg">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;xlline.github.io&#x2F;2019&#x2F;10&#x2F;25&#x2F;Gitbash_error&#x2F;tasklist_ret.jpg">
 
 
 
@@ -352,19 +352,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8B%BE%E7%BA%A7%E8%80%8C%E4%B8%8A/" itemprop="url" rel="index">
-                    <span itemprop="name">拾级而上</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8B%BE%E7%BA%A7%E8%80%8C%E4%B8%8A/%E8%BF%9B%E7%A8%8B/" itemprop="url" rel="index">
-                    <span itemprop="name">进程</span>
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
                   </a>
                 </span>
 
@@ -433,13 +422,14 @@
 
       
         <p>使用Git bash未正常退出后，再次打开出现 <code>Git bash Error: Could not fork child process: There are no available terminals (-1)</code>报错。<br>可以使用 tasklist命令 找到git-bash.exe和node.exe对应进程号后，使用taskkill结束进程即可。</p>
+<a id="more"></a>
 <ol>
 <li><p>win+r调出运行键入<code>cmd</code>后回车打开，使用<code>tasklist</code>查看本机进程。查询得到的字段有： 映像名称，PID(进程ID)，会话名，会话#，内存使用。如下图：</p>
-<img src="/.io//10/25/Gitbash_error/tasklist_ret.jpg" class="" title="tasklist运行结果">
+<img src="/2019/10/25/Gitbash_error/tasklist_ret.jpg" class="" title="tasklist运行结果">
 <p>如图 smss.exe 的进程ID为 520(你看随便找个进程都是爱你的数字)，咳咳</p>
 </li>
 <li><p>找到git-bash.exe对应的进程号，比如我的是 12184，然后使用命令 <code>taskkill /pid 12184 -t -f</code> 终止ID为12184的进程。</p>
-<img src="/.io//10/25/Gitbash_error/taskkill_ret.png" class="" title="taskkill命令运行结果"></li>
+<img src="/2019/10/25/Gitbash_error/taskkill_ret.png" class="" title="taskkill命令运行结果"></li>
 <li><p>找到node.exe对应的进程号，比如我的是 868，然后使用命令 <code>taskkill /pid 868 -t -f</code> 终止ID为868的进程。</p>
 </li>
 </ol>
@@ -481,7 +471,7 @@
   <p><span>本文标题:</span><a href="/2019/10/25/Gitbash_error/">Git bash Error:Could not fork child process:There are no available terminals (-1)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 xugz 的个人博客">xugz</a></p>
   <p><span>发布时间:</span>2019年10月25日 - 11:22</p>
-  <p><span>最后更新:</span>2019年10月25日 - 17:55</p>
+  <p><span>最后更新:</span>2021年09月11日 - 16:42</p>
   <p><span>原始链接:</span><a href="/2019/10/25/Gitbash_error/" title="Git bash Error:Could not fork child process:There are no available terminals (-1)">https://xlline.github.io/2019/10/25/Gitbash_error/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://xlline.github.io/2019/10/25/Gitbash_error/"  aria-label="复制成功！"></i></span>
   </p>
@@ -522,11 +512,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Git-bash/" rel="tag"><i class="fa fa-tag"></i> Git bash</a>
-          
-            <a href="/tags/Windows/" rel="tag"><i class="fa fa-tag"></i> Windows</a>
-          
-            <a href="/tags/tasklist/" rel="tag"><i class="fa fa-tag"></i> tasklist</a>
+            <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
           
             <a href="/tags/taskkill/" rel="tag"><i class="fa fa-tag"></i> taskkill</a>
           
@@ -621,7 +607,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -632,7 +618,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -643,7 +629,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -718,7 +704,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 35.2k 字</span>
+  <span class="post-count">全站共 36.7k 字</span>
 </div>
         
 
