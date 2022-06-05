@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="手册集">
 <meta property="og:description" content="整理 Git 中常见、常用命令提供快速翻阅。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-09-11T09:30:53.844Z">
+<meta property="og:updated_time" content="2022-06-05T01:24:49.037Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -381,7 +381,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k 字
+                  1.5k 字
                 </span>
               
 
@@ -457,6 +457,8 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <p>用 <code>git rm &lt;filename&gt;</code> 从暂存区域移除指定文件。  </p>
 <p><code>git reset HEAD/&lt;filename&gt;</code>  取消缓存已缓存的全部内容/指定文件。  </p>
 <p><code>git mv file_from file_to</code> 移动/重命名已跟踪的文件。</p>
+<p>忽略本地指定文件变更，比如本地配置了开发环境参数，不需要提交<br><code>git update-index --assume-unchanged &lt;filename&gt;</code></p>
+<p>当需要提交该文件时，执行 <code>git update-index --no-assume-unchanged &lt;filename&gt;</code> 取消忽略</p>
 <h1 id="远程仓库的使用"><a href="#远程仓库的使用" class="headerlink" title="远程仓库的使用"></a>远程仓库的使用</h1><p><code>git remote -v</code> 命令查看已经配置的远程仓库服务器名字及对应URL。<br><code>git remote add &lt;shortname&gt; &lt;url&gt;</code> 添加一个新的远程 Git 仓库，同时指定一个方便使用的简写。  </p>
 <p><code>git fetch &lt;remote&gt;</code> 从远端仓库获取新分支与数据。</p>
 <p><code>git pull</code> 从远端仓库提取数据并尝试合并到当前分支。</p>
@@ -498,7 +500,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
   <p><span>本文标题:</span><a href="/2020/03/11/Git-base/">Git常用命令整理</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 xugz 的个人博客">xugz</a></p>
   <p><span>发布时间:</span>2020年03月11日 - 14:51</p>
-  <p><span>最后更新:</span>2021年09月11日 - 17:30</p>
+  <p><span>最后更新:</span>2022年06月05日 - 09:24</p>
   <p><span>原始链接:</span><a href="/2020/03/11/Git-base/" title="Git常用命令整理">https://xlline.github.io/2020/03/11/Git-base/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://xlline.github.io/2020/03/11/Git-base/"  aria-label="复制成功！"></i></span>
   </p>
@@ -732,7 +734,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -754,7 +756,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 37.4k 字</span>
+  <span class="post-count">全站共 37.5k 字</span>
 </div>
         
 
