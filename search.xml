@@ -76,6 +76,82 @@
       </tags>
   </entry>
   <entry>
+    <title>Windows PHP开发环境 WSL + VsCode</title>
+    <url>/2020/06/12/WSL_VsCode/</url>
+    <content><![CDATA[<p>使用VsCode+WSL进行开发，下面是必要配置，以及部分常用VsCode插件推荐。</p>
+<a id="more"></a>
+
+<h1 id="Windows-环境设置"><a href="#Windows-环境设置" class="headerlink" title="Windows 环境设置"></a>Windows 环境设置</h1><ol>
+<li>打开win10系统的开发者选项<br>在“设置” &gt; “更新和安全” &gt; “开发人员选项” 中 打开开发人员模式。<a href="https://jingyan.baidu.com/article/0a52e3f4e4bea2bf62ed72da.html" target="_blank" rel="noopener">详细操作点我参考</a></li>
+<li>打开win10系统的子系统设置<br>“控制面板” &gt; “程序和功能” &gt; “启用或关闭Windows选项” 中找到 “适用于Linux的Windows子系统” 并勾选,然后 确定 选择 立即重新启动。<img src="/2020/06/12/WSL_VsCode/config_01.png" class title="Linux的Windows子系统">  
+
+
+</li>
+</ol>
+<h1 id="安装Ubuntu系统"><a href="#安装Ubuntu系统" class="headerlink" title="安装Ubuntu系统"></a>安装Ubuntu系统</h1><ol>
+<li>在微软商店中搜索 Ubuntu 并安装 Ubuntu 18.04 版本</li>
+<li>安装完成后，首先运行一次 Ubuntu，使其初始换完成，并输入自己的用户名和密码。</li>
+</ol>
+<h1 id="下载安装VsCode"><a href="#下载安装VsCode" class="headerlink" title="下载安装VsCode"></a>下载安装VsCode</h1><p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VsCode 官网地址</a><br>必要插件推荐  </p>
+<ul>
+<li><p>WSL链接相关插件 Remote - WSL   </p>
+<img src="/2020/06/12/WSL_VsCode/Remote-wsl.png" class>  
+</li>
+<li><p>中文语言包 Chinese  </p>
+<img src="/2020/06/12/WSL_VsCode/Chinese.png" class>  
+</li>
+<li><p>VsCode 主题包 vscode-icons  </p>
+<img src="/2020/06/12/WSL_VsCode/icons.png" class> 
+</li>
+<li><p>Git相关 Git History 和 GitLens  </p>
+<img src="/2020/06/12/WSL_VsCode/git.png" class>  
+</li>
+<li><p>PHP相关 PHP Intelephense PHP Extension Pack PHP DocBlocker  PHP Debug   phpfmt - PHP formatter</p>
+<img src="/2020/06/12/WSL_VsCode/php.png" class>  
+</li>
+<li><p>前端相关  Vue插件 Vetur</p>
+<img src="/2020/06/12/WSL_VsCode/vetur.png" class> 
+</li>
+<li><p>其他 env文件的管理插件 DotENV</p>
+<img src="/2020/06/12/WSL_VsCode/dotenv.png" class title="env文件的管理插件"> 
+
+
+</li>
+</ul>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ol>
+<li>子系统中的 hosts 文件每次重启后会通过 Windows 中的 hosts 重新生成。所以添加 hosts 配置时，需要在两个文件中都添加。</li>
+<li>Windows WSL 中安装的 Nginx / PHP-FPM 超时问题<br>子系统中的 nginx 需要关闭 PHP 的缓存配置  <img src="/2020/06/12/WSL_VsCode/php-fpm%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98.png" class title="php-fpm超时问题">  
+
+</li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>PHP</category>
+      </categories>
+      <tags>
+        <tag>PHP</tag>
+        <tag>VsCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git的HTTP协议凭证存储</title>
     <url>/2020/05/22/Redis-credential/</url>
     <content><![CDATA[<p>凭证存储为了解决Git使用HTTP协议访问远程仓库账号密码需要多次输入的问题。</p>
@@ -130,7 +206,7 @@
 <p>使用<code>ps -ef | grep redis</code>检查两个进程是否正常存在。<br>使用<code>./redis-cli -h 127.0.0.1 -p 6380</code>命令指定端口和服务器进入客户端，使用<code>info</code>命令查看Replication选项确定是否配置成功，使用<code>role</code>也可。</p>
 <figure class="highlight sh"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master <span class="comment"># 角色，master代表是主机</span></span><br><span class="line">connected_slaves:1 <span class="comment"># 连接的从机的数量 我们这里只配置了6381一个</span></span><br><span class="line">slave0:ip=127.0.0.1,port=6381,state=online,offset=280,lag=0</span><br></pre></td></tr></tbody></table></figure>
 <p>下图为验证主备功能的。图片显示6380主服务器可读可写，6381备服只有读取权限。</p>
-<img src="/2020/05/16/Redis-config/slave_readonly.png" class="" title="主备功能数据获取验证"> 
+<img src="/2020/05/16/Redis-config/slave_readonly.png" class title="主备功能数据获取验证"> 
 
 <h1 id="使用哨兵模式实现主从切换"><a href="#使用哨兵模式实现主从切换" class="headerlink" title="使用哨兵模式实现主从切换"></a>使用哨兵模式实现主从切换</h1><p><a href="http://www.redis.cn/topics/sentinel.html" target="_blank" rel="noopener">参考Redis中文文档中对哨兵的描述</a></p>
 <blockquote>
@@ -145,9 +221,9 @@
 <figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 端口</span></span><br><span class="line">port <span class="number">6380</span>  </span><br><span class="line"><span class="comment">// 工作目录</span></span><br><span class="line">dir /usr/local/redis/tmp</span><br><span class="line"><span class="comment">// 指定的要检测的实例。参数分别是 别名 ip 端口 server异常时需要确认异常的哨兵个数。1表示至少1个setinel实例同时检测到redis server异常时才将redis server的状态判决为"宕机"</span></span><br><span class="line">sentinel monitor mymaster <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">6380</span> <span class="number">1</span> </span><br><span class="line"><span class="comment">// 指定某个sentinel实例监控到某个redis实例持续异常多长时间后，会判决其状态为down。单位毫秒</span></span><br><span class="line">sentinel down-after-milliseconds mymaster <span class="number">60000</span> </span><br><span class="line"><span class="comment">// 若sentinel在该配置值内未能完成failover操作（即故障时master/slave自动切换），则认为本次failover失败</span></span><br><span class="line">sentinel failover-timeout mymaster <span class="number">180000</span> </span><br><span class="line"><span class="comment">// 指定failover过程中，同时被sentinel reconfigure的最大slave实例数。由于reconfigure过程中，对应的slave会中断响应客户端请求，故为避免所有的slave同时不可用，该值需适当配小。</span></span><br><span class="line">sentinel parallel-syncs mymaster <span class="number">1</span></span><br><span class="line"><span class="comment">// know-salve 代表已知的从机</span></span><br><span class="line">sentinel known-slave mymaster <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">6381</span> </span><br><span class="line"><span class="comment">// 同时一时间最多3个slave可同时更新配置</span></span><br><span class="line">sentinel leader-epoch mymaster <span class="number">3</span></span><br></pre></td></tr></tbody></table></figure>
 <p>将Redis源码中的 sentinel.conf 的文件拷贝到/usr/local/redis/conf目录下，修改自身需要的配置选项。</p>
 <h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>对于 redis-sentinel 程序，可以用<code>./redis-sentinel /path/to/sentinel.conf</code>命令来启动 Sentinel 系统。或者使用<code>nohup /usr/local/redis/bin/redis-sentinel /usr/local/redis/conf/sentinel.conf  &amp;</code>不挂断地运行命令。<br>对于 redis-server 程序，可以用<code>./redis-server /path/to/sentinel.conf --sentinel</code>命令来启动一个运行在 Sentinel 模式下的 Redis 服务器。<br>启动完成后我进行了数据验证，下图是验证用到的相关命令（注意redis服务的切换）</p>
-<img src="/2020/05/16/Redis-config/sentinel_look.png" class="" title="验证哨兵功能"> 
+<img src="/2020/05/16/Redis-config/sentinel_look.png" class title="验证哨兵功能"> 
 <p>通过上图的验证我们发现：本来主机是6380可以读写，从服务器是6381只可读。手动杀掉主服务器的运行进程，等待最大持续异常时间（down-after-milliseconds）后，哨兵会将主服务器自动切换成6381，将6380作为6381的备服。即使我们后续将6380再次启动，6380仍是6381的备服，数据只读。这在哨兵的服务进程中也有体现，见下图</p>
-<img src="/2020/05/16/Redis-config/sentinel_work.png" class=""> 
+<img src="/2020/05/16/Redis-config/sentinel_work.png" class> 
 
 <h1 id="主从从配置"><a href="#主从从配置" class="headerlink" title="主从从配置"></a>主从从配置</h1><p>如果让所有的slave节点数据的复制和同步都由master节点来处理，会造成master节点I/O压力过大。所以我们打算将6380作为主服务器，用于写入操作，6381和6382作为备服负责读操作。为了减轻master压力，让6382数据备份来源改成6381，实现主从从模式。</p>
 <h2 id="配置修改"><a href="#配置修改" class="headerlink" title="配置修改"></a>配置修改</h2><h3 id="redis-conf"><a href="#redis-conf" class="headerlink" title="redis.conf"></a>redis.conf</h3><p>确认以下参数：port、pidfile、daemonize、dbfilename和dir。<br>将slaveof选项添加到备服。将6382数据备份来源改成6381，6381的数据备份来源还是6380。6382的部分配置如下</p>
@@ -171,14 +247,14 @@
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">su - root </span><br><span class="line">yum -y install ruby ruby-devel rubygems rpm-build</span><br><span class="line">gem install redis</span><br></pre></td></tr></tbody></table></figure>
 <p>或者编译安装。<a href="http://www.ruby-lang.org/en/downloads/" target="_blank" rel="noopener">官方下载地址</a><br> <code>wget https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.7.1.tar.gz --no-check-certificate</code></p>
 <h2 id="搭建集群"><a href="#搭建集群" class="headerlink" title="搭建集群"></a>搭建集群</h2><p>首先启动六个实例，我们可以使用<code>/usr/local/redis/bin/redis-server /usr/local/redis/cluster_conf/7000.conf</code>命令一条条启动，也可以封装到可执行脚本中。<br>启动完成 <code>ps -ef | grep redis</code> 查看如下</p>
-<img src="/2020/05/16/Redis-config/cluster_start.png" class=""> 
+<img src="/2020/05/16/Redis-config/cluster_start.png" class> 
 <p>现在我们已经有了六个正在运行中的 Redis 实例， 接下来我们需要使用这些实例来创建集群， 并为每个节点编写配置文件。<br>通过使用 Redis 集群命令行工具 redis-trib ，编写节点配置文件的工作可以非常容易地完成：redis-trib 位于 Redis 源码的 src 文件夹中，它是一个 Ruby 程序，这个程序通过向实例发送特殊命令来完成创建新集群，检查集群，或者对集群进行重新分片（reshared）等工作。</p>
 <p>创建一个新的集群, 选项–replicas 1 表示我们希望为集群中的每个主节点创建一个从节点。下面命令默认创建7000 7001 7002 为主节点，7003 7004 7005为备节点。<br>低版本使用：<code>./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005</code><br>Redis5.0后不再支持上条命令，需要使用redis-cli来实现。如下<br><code>./redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 --cluster-replicas 1</code><br>之后跟着的其他参数则是这个集群实例的地址列表,3个master3个slave redis-trib 会打印出一份预想中的配置给你看，如果你觉得没问题的话，就可以输入yes，redis-trib 就会将这份配置应用到集群当中,让各个节点开始互相通讯,最后可以得到如下信息：</p>
 <blockquote>
 <p>[OK] All nodes agree about slots configuration.<br>[OK] All 16384 slots covered.</p>
 </blockquote>
 <p>这表示集群中的 16384 个槽都有至少一个主节点在处理， 集群运作正常。此时，我们可以使用<code>redis-cli -c -p 7000</code>命令连接到7000端口的客户端，也可以通过脚本进入。相关验证如下图</p>
-<img src="/2020/05/16/Redis-config/cluster_sess.png" class=""> 
+<img src="/2020/05/16/Redis-config/cluster_sess.png" class> 
 
 <p><span style="font-size: 13px; color: #777;">官方提供了一个自动化脚本,在 redis源码目录的utils文件夹，下面有个create-cluster文件夹，下面有个create-cluster脚本。也可以根据里面的代码进行脚本执行搭建。</span></p>
 <h1 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h1><h2 id="ERR-Slot-xxxxx-is-already-busy-Redis-CommandError"><a href="#ERR-Slot-xxxxx-is-already-busy-Redis-CommandError" class="headerlink" title="ERR Slot xxxxx is already busy (Redis::CommandError)"></a>ERR Slot xxxxx is already busy (Redis::CommandError)</h2><p>如果上一次运行出错，则必须去datadir对应目录去手工删除自动生成的cluster配置文件。</p>
@@ -291,16 +367,16 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <a id="more"></a>
 
 <p><strong>虚拟机部分</strong><br>使用非Root账户创建一个空文件夹<br>设置SSH权限和密码，确保本地可以正常连接到虚拟机。不清楚的话可以参考<a href="https://xlline.github.io/2019/10/31/SSH%E7%A7%98%E9%92%A5%E6%93%8D%E4%BD%9C/">点我，我是猴子派来的救兵</a><br>确保当前容器已经正常启动且已实现代码映射到虚拟机<br><strong>主机部分</strong><br>本地我们要新建一个空目录（存放我们即将要同步的代码），使用PHPstorm打开，此时是一个空项目。PHP storm会在我们新建的目录里生成 .idea 文件夹。<br>File-&gt;Settings-&gt;Build,Execution,Deployment中点击Deployment。选择”+”中的SFTP创建新连接，键入你喜欢的连接名。<br>在Connection中填写基础连接配置</p>
-<div style="width: 71%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_1.png" class=""></div>
+<div style="width: 71%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_1.png" class></div>
 
 <p>在Mappings中填写本地路径和目标路径</p>
-<div style="width: 71%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_2.png" class=""></div>
+<div style="width: 71%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_2.png" class></div>
 
 <p>在Excluded Paths中填写我们要忽略排除的文件路径</p>
-<div style="width: 71%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_3.png" class=""></div>
+<div style="width: 71%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_3.png" class></div>
 
 <p>配置完成点击应用就可以啦。在Tools-&gt;Deployment下选择Upload to swoole(这里的swoole是你创建的连接名，我本地是swoole)手动上传到远端，选择Automatic Upload(always)自动上传。</p>
-<div style="width: 61%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_4.png" class=""></div>
+<div style="width: 61%;margin: left"><img src="/2019/12/06/DevelopTool-phpstorm/setting_4.png" class></div>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -379,7 +455,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <h1 id="添加控制器、url重写"><a href="#添加控制器、url重写" class="headerlink" title="添加控制器、url重写"></a>添加控制器、url重写</h1><p>tp5默认有个控制器，位置在: application/index/controller/index.php</p>
 <p>在我们开启防火墙端口<code>sudo iptables -A INPUT -p tcp -m tcp --dport 8081 -j ACCEPT</code> 后，可以在windows本机通过 <code>虚拟机:端口/index.php</code><br>tp5创建控制可以用命令直接帮你创建：<code>php think make:controller index/test</code> <span style="font-size: 13px; color: #777;"> 需要确保本地有PHP环境</span> 当然我们也可以手工创建</p>
 <p>开启apache重写模块<br>取消本行注释 <code>LoadModule rewrite_module modules/mod_rewrite.so</code><br>在网站配置相关节点加入  <code>AllowOverride all</code></p>
-<div style="width: 67%;margin: left"><img src="/2019/12/03/Docker-tp5-base/rewrite_conf.png" class=""></div>
+<div style="width: 67%;margin: left"><img src="/2019/12/03/Docker-tp5-base/rewrite_conf.png" class></div>
 
 <p>完成后使用 <code>docker-compose restart</code> 让其重启重新构建容器<br><code>虚拟机:端口/index</code> 访问Index目录下index文件 <code>虚拟机:端口/index/index/test</code> 访问Index目录下index中的test方法<br><code>虚拟机:端口/index/user</code> 访问Index目录下user文件index方法 <code>虚拟机:端口/index/user_index</code> 访问Index目录下UserIndex文件index方法</p>
 <h1 id="添加PHP扩展"><a href="#添加PHP扩展" class="headerlink" title="添加PHP扩展"></a>添加PHP扩展</h1><p>在容器中直接修改安装的话，容器删除后重新启动时，拓展和配置等都会丢失，所以我们在docker-compose文件中进行构建。在docker-compose.yml文件同目录创建新文件夹叫做build.<br>参考地址： <a href="https://hub.docker.com/_/php/" target="_blank" rel="noopener">https://hub.docker.com/_/php/</a></p>
@@ -395,24 +471,24 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <h1 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h1><p>编辑TP5对应的compose配置docker-compose.yml文件，加入MySQL的配置</p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">mysql:</span><br><span class="line">   image: mysql:5.7</span><br><span class="line">   container_name: mysqld</span><br><span class="line">   ports:</span><br><span class="line">     - 3306:3306</span><br><span class="line">   volumes:</span><br><span class="line">     - /home/xugz/mysql/conf:/etc/mysql/conf.d</span><br><span class="line">     - /home/xugz/mysql/data:/var/lib/mysql</span><br><span class="line">   environment:</span><br><span class="line">     - MYSQL_ROOT_PASSWORD=123456</span><br><span class="line">   networks:</span><br><span class="line">     - mywebnet</span><br></pre></td></tr></tbody></table></figure>
 <p>然后使用 <code>docker-compose up -d mysql</code> 创建MySQL服务器容器<br>在应用程序web目录里application/database.php中修改MySQL配置，参考配置如下</p>
-<div style="width: 67%;margin: left"><img src="/2019/12/03/Docker-tp5-base/db_conn_conf.png" class=""></div>
+<div style="width: 67%;margin: left"><img src="/2019/12/03/Docker-tp5-base/db_conn_conf.png" class></div>
 
 <p>配置完成后，可定义模型和数据库调用尝试验证。<a href="https://www.kancloud.cn/manual/thinkphp5/135187" target="_blank" rel="noopener">点我，我是隐藏的参考地址</a></p>
 <h1 id="结合redis容器基本操作"><a href="#结合redis容器基本操作" class="headerlink" title="结合redis容器基本操作"></a>结合redis容器基本操作</h1><p>拉取官方镜像 <code>docker pull redis:alpine</code><br>在conf目录下拉取redis配置文件 <code>wget https://raw.githubusercontent.com/antirez/redis/5.0/redis.conf</code><br>编辑redis.conf文件修改一些基本参数  如 <code>bind 0.0.0.0</code> 和 <code>dir /data</code></p>
 <p>编辑TP5对应的compose配置docker-compose.yml文件，加入Redis的配置</p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">redis:</span><br><span class="line">    image: redis:alpine</span><br><span class="line">    container_name: redis</span><br><span class="line">    ports:</span><br><span class="line">     - 6379:6379</span><br><span class="line">    volumes:</span><br><span class="line">     - /home/xugz/tp5/conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line">     - /home/xugz/tp5/redisdata:/data # 这里的data和 conf/redis.conf中的dir配置保持一致</span><br><span class="line">    networks:</span><br><span class="line">      mywebnet:</span><br><span class="line">       ipv4_address: 192.138.0.10</span><br></pre></td></tr></tbody></table></figure>
 <p>修改application/config.php中关于缓存相关配置，参考如图</p>
-<div style="width: 68%;margin: left"><img src="/2019/12/03/Docker-tp5-base/redis_conf.png" class=""></div>
+<div style="width: 68%;margin: left"><img src="/2019/12/03/Docker-tp5-base/redis_conf.png" class></div>
 
 <p>然后使用 <code>docker-compose up -d</code> 创建redis服务器容器。成功的话使用 <code>docker exec -it redis redis-cli</code> 可进入Redis客户端。也可以写简单的测试验证，最简单的代码如图</p>
-<div style="width: 67%;margin: left"><img src="/2019/12/03/Docker-tp5-base/code_redis.png" class=""></div>
+<div style="width: 67%;margin: left"><img src="/2019/12/03/Docker-tp5-base/code_redis.png" class></div>
 
 <p>使用浏览器访问 <code>http://192.168.2.156:8081/news</code> 即可看到测试数据<br>参考文档： <a href="https://hub.docker.com/_/redis/" target="_blank" rel="noopener">https://hub.docker.com/_/redis/</a></p>
 <h1 id="上传文件-todo"><a href="#上传文件-todo" class="headerlink" title="上传文件 todo"></a>上传文件 todo</h1><p>默认模板配置已完成 <a href="https://www.kancloud.cn/manual/thinkphp5/119298" target="_blank" rel="noopener">参考地址</a>。默认模板实例代码已创建 <a href="https://www.kancloud.cn/manual/thinkphp5/155159" target="_blank" rel="noopener">模板实例代码参考地址</a><br>此时我们刷新页面报错：<em>mkdir():Permission denied</em>。这是因为主机上的用户和容器里用户未对应导致的权限问题。<br>如果你是apline 3.4 版本在数据源中加入 <code>echo http://nl.alpinelinux.org/alpine/edge/testing &gt;&gt; /etc/apk/repositories</code> 然后执行 <code>apk -no-cache add shadow</code>。是 alpine 3.6.则直接安装即可 <code>apk  add shadow</code>。通过 <a href="https://pkgs.alpinelinux.org/contents?file=usermod&amp;path=&amp;name=&amp;branch=&amp;repo=&amp;arch=" target="_blank" rel="noopener">地址</a> 找到对于 usermod文件的所在包。<br>完成之后执行 <code>usermod -u 1000 www-data &amp;&amp; groupmod -g 1000 www-data</code>修改用户www-data的用户以及群组ID为1000。搞定后要重启容器。</p>
 <p>使用 <code>cat /etc/passwd</code> 命令查看用户归属组等信息</p>
 <h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="浏览器访问报错-variable-type-error-array"><a href="#浏览器访问报错-variable-type-error-array" class="headerlink" title="浏览器访问报错 variable type error:array"></a>浏览器访问报错 variable type error:array</h2><p>默认输出类型导致解析异常。在应用程序web目录里application/config.php中修改，如 <code>default_return_type = 'json'</code></p>
 <h2 id="wget文件报错-unable-to-resolve-host-address"><a href="#wget文件报错-unable-to-resolve-host-address" class="headerlink" title="wget文件报错 unable to resolve host address"></a>wget文件报错 unable to resolve host address</h2><p>因为VPS的本地DNS不通导致的，我们需要修改当前VPS的DNS。<br>修改 /etc/resolv.conf 文件，增加DNS nameserver 8.8.8.8保存退出后重试。</p>
-<h2 id="查看运行在docker中的redis版本"><a href="#查看运行在docker中的redis版本" class="headerlink" title="查看运行在docker中的redis版本"></a>查看运行在docker中的redis版本</h2><p>使用命令  `docker exec -it <containerid or="" name=""> redis-server -v</containerid></p>
+<h2 id="查看运行在docker中的redis版本"><a href="#查看运行在docker中的redis版本" class="headerlink" title="查看运行在docker中的redis版本"></a>查看运行在docker中的redis版本</h2><p>使用命令  `docker exec -it <containerid or name> redis-server -v</containerid></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -565,7 +641,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <a id="more"></a>
 <p>比如说，我们现在想要查询得出当前日期的一天前和五天前的日期，测试SQL语句如下</p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">SELECT NOW(),CURDATE(), CURTIME(), DATE_SUB(CURDATE(),INTERVAL 1 DAY),CURDATE()-1, DATE_SUB(CURDATE(),INTERVAL 5 DAY), CURDATE()-5;</span><br></pre></td></tr></tbody></table></figure>
-<div style="width: 85%;margin: left"><img src="/2019/12/02/MySQL-time-addsub/sql_result.png" class="" title="执行SQL得到的结果"></div>
+<div style="width: 85%;margin: left"><img src="/2019/12/02/MySQL-time-addsub/sql_result.png" class title="执行SQL得到的结果"></div>
 明显发现使用 CURDATE()函数直接进行加减存在问题，需要留意。当我们需要日期加减操作时，可使用 DATE_SUB() 和 DATE_ADD() 函数。
 
 <p>DATE_ADD()和DATE_SUB()函数常用type参数有： </p>
@@ -665,7 +741,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <h1 id="创建Docker主机"><a href="#创建Docker主机" class="headerlink" title="创建Docker主机"></a>创建Docker主机</h1><p>首先我们需要安装virtualbox <a href="https://www.virtualbox.org/wiki/Linux_Downloads" target="_blank" rel="noopener">官方下载地址点我</a>。选择对应版本的rpm下载包，通过ftp方式拷贝到服务器，进行<code>yum install &lt;包名&gt; -y</code> 安装即可。同时，oracle也告诉我们存在其他方法 <a href="http://yum.oracle.com/getting-started.html" target="_blank" rel="noopener">参考地址</a>，如下</p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">wget   http://yum.oracle.com/public-yum-ol7.repo</span><br><span class="line">然后把下载下来的文件拷贝到/etc/yum.repos.d中</span><br><span class="line">yum install VirtualBox-5.2</span><br></pre></td></tr></tbody></table></figure>
 <p><a href="https://docs.docker.com/machine/drivers/virtualbox/" target="_blank" rel="noopener">创建Docker主机安装virtualbox参考地址</a><br>完成可以执行 <code>docker-machine create --driver=virtualbox vbox-test</code> 创建。<br>执行该命令，他首先检查 /home/xugz/.docker/machine/cache 是否存在，没有则创建文件夹；然后寻找该文件夹下是否有 boot2docker.iso文件（一个基于Tiny Core Linux的系统，里面Docker啥的都帮你搞定了），另外会默认会创建一个虚拟网卡 （vboxnet0）。所以如果太慢，我们可以去<a href="https://github.com/boot2docker/boot2docker/releases/" target="_blank" rel="noopener">boot2docker.iso对应gitHub下载地址</a>手工下载用ftp传到目标服务器再执行创建。</p>
-<div style="width: 61%;margin: left"><img src="/2019/11/28/Docker-Machine/create.png" class=""></div>
+<div style="width: 61%;margin: left"><img src="/2019/11/28/Docker-Machine/create.png" class></div>
 
 <h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>查看列表 <code>docker-machine ls</code><br>查看IP地址 <code>docker-machine ip 虚拟机名称</code><br>停止和开启 <code>docker-machine stop/start  虚拟机名称</code><br>查看环境变量 <code>docker-machine env vbox-test</code><br> 如果我们要操作machine里面的docker环境变量 ,可以不用进入到虚拟机<br> 使用eval命令（可以读取一连串的参数,然后按照参数特性来执行）<br> 此时我们执行 <code>eval $(docker-machine env vbox-test)</code><br> 这时我们本机的docker客户端就连接了vbox-test的docker服务端<br> 切换回来使用命令 <code>eval $(docker-machine env -u)</code><br>SSH的方式连接到虚拟机 <code>docker-machine ssh 虚拟机名称</code></p>
 <h1 id="移植主机镜像到虚拟机"><a href="#移植主机镜像到虚拟机" class="headerlink" title="移植主机镜像到虚拟机"></a>移植主机镜像到虚拟机</h1><p><strong>创建私有镜像库</strong></p>
@@ -682,7 +758,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="http-server-gave-HTTP-response-to-HTTPS-client"><a href="#http-server-gave-HTTP-response-to-HTTPS-client" class="headerlink" title="http: server gave HTTP response to HTTPS client"></a>http: server gave HTTP response to HTTPS client</h2><p>因为docker为了安全，需要https 。但是我们可以让其不需要。<br>如果我们在主机里，那么要修改的是<code>/etc/docker/daemon.json</code>。在machine里也是一样的，那么要在/etc/docker下面 手动创建daemon.json文件（默认是木有的），添加如下内容</p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">{</span><br><span class="line">    "insecure-registries":["192.168.99.1:5000"]</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>修改完成需要重启虚拟机主机 <code>docker-machine restart 虚拟机名称</code>。</p>
-<div style="width: 61%;margin: left"><img src="/2019/11/28/Docker-Machine/error_https.png" class=""></div>
+<div style="width: 61%;margin: left"><img src="/2019/11/28/Docker-Machine/error_https.png" class></div>
 ## This computer doesn't have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory
 如果是在VMware中的Linux，需要在关机状态的虚拟机进行配置: 虚拟机&gt;设置&gt;处理器中勾选虚拟化 Intel VT-x/EPT 或 AMD-V/RVI(V)<script>
         document.querySelectorAll('.github-emoji')
@@ -717,7 +793,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <a id="more"></a>
 
 <h1 id="手工搭建CentOS-Nginx容器"><a href="#手工搭建CentOS-Nginx容器" class="headerlink" title="手工搭建CentOS+Nginx容器"></a>手工搭建CentOS+Nginx容器</h1><p><code>docker pull centos</code><br>在centos镜像基础上创建一个临时容器tmp，执行命令 <code>docker run -it --privileged --name tmp centos /usr/sbin/init</code>后如下图。保持不动，新开窗口进行后续操作。</p>
-<div style="width: 61%;margin: left"><img src="/2019/11/25/Docker-Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/run_desc.png" class=""></div>
+<div style="width: 61%;margin: left"><img src="/2019/11/25/Docker-Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/run_desc.png" class></div>
 
 <p>进入容器 <code>docker exec -it tmp /bin/bash</code><br>升级包 <code>rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</code><br>默认安装 <code>yum install nginx -y</code><br><span style="font-size: 13px; color: #777;"> 安装完成之后，nginx配置文件默认路径为 /etc/nginx/nginx.conf ，是全局配置文件。</span><br>启动nginx <code>systemctl start nginx</code><br>设置开机自启动 <code>systemctl enable nginx</code> 启动成功我们可以使用 <code>curl http://localhost</code> 验证，正常的话，我们会看到Welcome to nginx之类的HTML源码。<br>接下来我们要把容器作为镜像保存起来，使用commit命令。<br>利用dockerfile里面的格式去创建新镜像 <code>docker commit -c 'CMD ["/usr/sbin/init"] ' -c "EXPOSE 80" tmp centos:nginx</code><br>基于这个镜像创建新容器，因为docker非持久化，把配置文件映射到本地主机。使用cp命令。<br><code>docker cp tmp:/etc/nginx/nginx.conf /home/xugz/nginx/conf/</code><br>此时可以停止并删除临时容器tmp。<br>启动Nginx镜像 指定端口9090，nginx.conf文件同步 <code>docker run --name mynginx --privileged -p 9090:80 -v /home/xugz/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -d centos:nginx</code>。启动成功后，使用虚拟机IP:9090在本地浏览器可以访问。</p>
 <p><a href="https://docs.docker.com/engine/reference/commandline/cp/" target="_blank" rel="noopener">cp命令参考地址</a><br><a href="https://docs.docker.com/engine/reference/commandline/commit/#description" target="_blank" rel="noopener">commit命令参考地址</a></p>
@@ -733,7 +809,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">nginx: </span><br><span class="line">    container_name: mynginx</span><br><span class="line">    image: "centos:nginx"</span><br><span class="line">    ports: </span><br><span class="line">      - "9090:80"</span><br><span class="line">    privileged: true</span><br><span class="line">    volumes: </span><br><span class="line">      - "/home/xugz/nginx/conf/nginx.conf:/etc/nginx/nginx.conf"</span><br></pre></td></tr></tbody></table></figure>
 <p><a href="http://www.bejson.com/validators/yaml/" target="_blank" rel="noopener">yaml在线检查工具</a><br><a href="https://docs.docker.com/compose/" target="_blank" rel="noopener">compose官方参考文档</a></p>
 <h1 id="network"><a href="#network" class="headerlink" title="network"></a>network</h1><p>网络列表 <code>docker network ls</code><br>查看详细信息 <code>docker network inspect &lt;network name&gt;</code><br>容器之前可以使用IP进行互通，实验如图</p>
-<div style="width: 80%;margin: left"><img src="/2019/11/25/Docker-Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/network_before.png" class=""></div>
+<div style="width: 80%;margin: left"><img src="/2019/11/25/Docker-Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/network_before.png" class></div>
 
 <h2 id="手动配置"><a href="#手动配置" class="headerlink" title="手动配置"></a>手动配置</h2><p>现在我们新建网络 mynginx 然后让上文中涉及的三个容器都加入我们新建的网络里<br>停止原有三个容器 使用命令 <code>docker-compose stop</code><br>创建网络 指定子网为192.168.0.0 <code>docker network create -d bridge --subnet=192.168.0.0/16 mynginx</code><br>在docker-compose.yml文件中新增如下内容</p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">version: "3"</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    ……</span><br><span class="line">    networks:</span><br><span class="line">      - "mynginx-net" # 和networks中网络名称一致</span><br><span class="line">networks:</span><br><span class="line">  mynginx-net: # 可自定义</span><br><span class="line">    external:</span><br><span class="line">      name: "mynginx"</span><br></pre></td></tr></tbody></table></figure>
@@ -757,7 +833,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
  exit 1 非正常退出  <br>
  || 表示 左边执行为false才会执行右边 &amp;&amp; 为左边执行为true才会执行右边 <br>
 </span> 
-<div style="width: 80%;margin: left"><img src="/2019/11/25/Docker-Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/health_run.png" class="" title="容器健康检查机制手动执行"><img src="/2019/11/25/Docker-Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/health_un.png" class="" title="不健康容器示例"></div>
+<div style="width: 80%;margin: left"><img src="/2019/11/25/Docker-Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/health_run.png" class title="容器健康检查机制手动执行"><img src="/2019/11/25/Docker-Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/health_un.png" class title="不健康容器示例"></div>
 
 <p>此时，可以使用 <code>docker inspect web1</code> 命令检查容器<br>只看Health部分使用命令 <code>docker inspect --format='' web1</code></p>
 <p><strong>使用Compose进行健康检查</strong><br>docker-compose.yml文件对应容器中添加如下示例配置即可</p>
@@ -799,12 +875,12 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <a id="more"></a>
 
 <h1 id="centOS7下安装docker"><a href="#centOS7下安装docker" class="headerlink" title="centOS7下安装docker"></a>centOS7下安装docker</h1><p>安装基本依赖 <code>sudo yum install -y yum-utils device-mapper-persistent-data lvm2</code><br>设置即将安装的是稳定版仓库 <code>sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code><br>(该步骤可不选)edge月更新仓库 <code>sudo yum-config-manager --enable docker-ce-edge</code><br>安装之前可以查看所有仓库中所有docker版本 <code>yum list docker-ce --showduplicates | sort -r</code><br>默认安装使用命令 <code>yum install docker-ce -y</code><br>安装完成启动 <code>systemctl start docker</code> 并设置开机自启动 <code>systemctl enable docker</code><br>docker安装时默认创建了docker用户组，将普通用户加入docker用户组就可以不使用sudo来操作docker。使用命令 <code>sudo usermod -aG docker xugz</code>加入，需要重新登录或者执行 <code>newgrp docker</code> 改变当前用户的有效群组才能生效。<br>到这里没有异常的话，使用 <code>docker version</code> 验证安装是否成功</p>
-<div style="width: 70%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/docker_v.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/docker_v.png" class></div>
 
 <p>安装过程同时可以参照<a href="https://yq.aliyun.com/articles/110806?spm=a2c1q.8351553.0.0.11b720beQRyGTx" target="_blank" rel="noopener">阿里云的帮助文档</a></p>
 <h1 id="centOS8安装docker"><a href="#centOS8安装docker" class="headerlink" title="centOS8安装docker"></a>centOS8安装docker</h1><p><strong>卸载旧版本</strong> 较旧的 Docker 版本称为 docker 或 docker-engine 。如果已安装这些程序，请卸载它们以及相关的依赖项<br><strong>安装步骤</strong><br>下载docker-ce的repo <code>curl https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo</code><br>安装依赖（这是相比centos7的关键步骤） <code>yum install https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm</code><br>安装docker-ce  <code>yum install docker-ce</code><br>启动docker<code>systemctl start docker</code><br>启动成功，使用<code>systemctl status docker</code> 查看docker启动状态或者使用<code>docker version</code>验证是否安装成功。</p>
 <h1 id="配置镜像加速器"><a href="#配置镜像加速器" class="headerlink" title="配置镜像加速器"></a>配置镜像加速器</h1><p>这里我用的是阿里云的镜像，配置加速器<a href="https://cr.console.aliyun.com/cn-shenzhen/instances/mirrors" target="_blank" rel="noopener">官方</a>已经给到参考步骤了，如下图</p>
-<div style="width: 68%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/mirrors.png" class=""></div>
+<div style="width: 68%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/mirrors.png" class></div>
 
 <h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>检查docker版本 <code>docker --version</code> or <code>docker info</code><br>拉取镜像 <code>docker pull  &lt;images name&gt;</code><br>运行镜像 <code>docker run -i -t --name &lt;new container name&gt; &lt;images name&gt;</code></p>
 <div style="font-size: 13px; margin-left: 0.5em; color: #777;  margin-top: -10px">
@@ -829,16 +905,16 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">ps -ef | grep docker</span><br><span class="line">sudo vim /usr/lib/systemd/system/docker.service</span><br><span class="line"># 将原来`ExecStart=/usr/bin/dockerd`改成`ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock`</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br><span class="line">ps -ef | grep docker</span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="Docker管理工具portainer"><a href="#Docker管理工具portainer" class="headerlink" title="Docker管理工具portainer"></a>Docker管理工具portainer</h1><p>Docker API必须通过TCP公开，确保已经开放TCP连接2375端口<br>拉取镜像 <code>docker pull portainer/portainer</code><br>运行容器 <code>docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v /opt/portainer:/data --name mydocker portainer/portainer</code><br>运行成功后，浏览器输入虚拟机IP+9000即可进入对应可视化界面。初次进入portainer会让你先创建用户，密码不能少于八位。而后配置将Portainer连接到要管理的Docker环境。</p>
-<div style="width: 68%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/portainer_enter.png" class=""></div>
+<div style="width: 68%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/portainer_enter.png" class></div>
 
 <p>如果在此时报错: <em>Get <a href="http://192.168.2.156:2375/_ping" target="_blank" rel="noopener">http://192.168.2.156:2375/_ping</a>: dial tcp 192.168.2.156:2375: connect: no route to host</em> 。关闭防火墙即可解决。</p>
 <p>github地址：<a href="https://github.com/portainer/portainer" target="_blank" rel="noopener">https://github.com/portainer/portainer</a><br>portainer官网地址: <a href="https://portainer.readthedocs.io/en/latest/deployment.html" target="_blank" rel="noopener">https://portainer.readthedocs.io/en/latest/deployment.html</a></p>
 <h1 id="使用portainer创建MySQL容器"><a href="#使用portainer创建MySQL容器" class="headerlink" title="使用portainer创建MySQL容器"></a>使用portainer创建MySQL容器</h1><p>在搭建好的可视化界面中，找到App Templates选择需要的镜像，填写必要配置后点击部署。这里我安装的是MySQL。需要注意的是，创建完成后自动帮我们启动这个镜像，MySQL官方提醒使用命令<code>docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag</code> 进行运行需要注意。记录密码 <code>docker run --name mysql -p 3307:3306 -e MYSQL_ROOT_PASSWORD=123123 -d mysql</code>。之后就可以使用本地进行来连接了。当然我们也可以使用命令行<code>docker exec -it mysql bash</code> 进入docker的MySQL容器。</p>
-<div style="width: 68%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/docker_mysql.png" class=""></div>
+<div style="width: 68%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/docker_mysql.png" class></div>
 
 <p>MySQL官方镜像文档: <a href="https://hub.docker.com/_/mysql/" target="_blank" rel="noopener">https://hub.docker.com/_/mysql/</a></p>
 <h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="普通用户运行docker命令不需要使用sudo"><a href="#普通用户运行docker命令不需要使用sudo" class="headerlink" title="普通用户运行docker命令不需要使用sudo"></a>普通用户运行docker命令不需要使用sudo</h2><p>使用root账号，修改文件 <code>/etc/sudoers</code>，找到 Allow root to run any commands anywhere 位置增加普通用户。如图</p>
-<div style="width: 30%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/sudoer_add.png" class=""></div>
+<div style="width: 30%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/sudoer_add.png" class></div>
 在Linux系统中运行没有sudo密码的特定命令
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[xugz@xugz yum.repos.d]$ docker images</span><br><span class="line">Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/images/json: dial unix /var/run/docker.sock: connect: permission denied</span><br><span class="line">[xugz@xugz yum.repos.d]$ sudo docker images</span><br><span class="line">[sudo] password for xugz:</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">[xugz@xugz yum.repos.d]$ id xugz</span><br><span class="line">uid=1000(xugz) gid=1000(xugz) groups=1000(xugz),0(root)</span><br><span class="line">[xugz@xugz yum.repos.d]$ sudo usermod -aG docker $(whoami)</span><br><span class="line">[xugz@xugz yum.repos.d]$ id xugz</span><br><span class="line">uid=1000(xugz) gid=1000(xugz) groups=1000(xugz),984(docker),0(root)</span><br></pre></td></tr></tbody></table></figure>
 注销并再次登录或者使用命令 `newgrp - docker` 改变当前用户的有效群组，完成后可以使用 `docker version` 命令检查安装的Docker版本了。
@@ -851,7 +927,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <p>参考<br><a href="https://docs.docker.com/engine/reference/commandline/run/#capture-container-id-cidfile" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/run/#capture-container-id-cidfile</a><br><a href="https://github.com/moby/moby/issues/7459" target="_blank" rel="noopener">https://github.com/moby/moby/issues/7459</a><br><a href="https://developers.redhat.com/blog/2014/05/05/running-systemd-within-docker-container/" target="_blank" rel="noopener">https://developers.redhat.com/blog/2014/05/05/running-systemd-within-docker-container/</a></p>
 <h2 id="使用Dockerfile成功启动Apache但浏览器拒绝访问"><a href="#使用Dockerfile成功启动Apache但浏览器拒绝访问" class="headerlink" title="使用Dockerfile成功启动Apache但浏览器拒绝访问"></a>使用Dockerfile成功启动Apache但浏览器拒绝访问</h2><p>如果是防火墙的问题，出现的报错提示应该是无法连接之类的，一般出现404  403那说明能连上。<br>因为默认的容器里可能没有设置默认主页配置，所以先将apache的默认主页index.html或index.htm 在浏览器输全尝试。<br>若还不行，进入容器，<code>curl http://localhost/index.html</code>尝试，确保浏览器地址没有输错。<br>若还不行，进入apache配置文件 /etc/httpd/conf/httpd.conf 找到默认目录DocumentRoot然后查看 这个目录是否有，且对应文件是否存在。<br>我这里的问题是，安装的这个apache镜像没有默认主页，新建就可以了……</p>
 <h2 id="启动容器时报错Error-response-from-daemon-driver-failed-programming-external-connectivity-on-endpoint-mysql"><a href="#启动容器时报错Error-response-from-daemon-driver-failed-programming-external-connectivity-on-endpoint-mysql" class="headerlink" title="启动容器时报错Error response from daemon: driver failed programming external connectivity on endpoint mysql"></a>启动容器时报错Error response from daemon: driver failed programming external connectivity on endpoint mysql</h2><p>docker服务启动时定义的自定义链DOCKER由于某种原因被清掉，重启docker服务及可重新生成自定义链DOCKER。使用命令<code>systemctl restart docker</code>在重新启动容器即可。如图</p>
-<div style="width: 68%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/docker_run_error.png" class=""></div>
+<div style="width: 68%;margin: left"><img src="/2019/11/21/Docker-%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/docker_run_error.png" class></div>
 
 <h2 id="docker-log-报错-SELinux-Could-not-open-policy-file-lt-etc-selinux-targeted-policy-policy-31-No-such-file-or-directory"><a href="#docker-log-报错-SELinux-Could-not-open-policy-file-lt-etc-selinux-targeted-policy-policy-31-No-such-file-or-directory" class="headerlink" title="docker log 报错 SELinux:  Could not open policy file <= /etc/selinux/targeted/policy/policy.31:  No such file or directory"></a>docker log <container>报错 SELinux:  Could not open policy file &lt;= /etc/selinux/targeted/policy/policy.31:  No such file or directory</container></h2><p>因为使用centos镜像的问题，需要处理SELinux。实际开发中使用镜像alpine，这里就先放过这个问题，以后再表。</p>
 <h1 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h1><p><a href="https://yq.aliyun.com/articles/110806?spm=a2c1q.8351553.0.0.11b720beQRyGTx" target="_blank" rel="noopener">阿里云docker安装帮助文档</a><br><a href="https://docs.docker.com/engine/reference/commandline/docker/" target="_blank" rel="noopener">官方文档基本命令参考地址</a><br><a href="https://cr.console.aliyun.com/cn-shenzhen/instances/mirrors" target="_blank" rel="noopener">配置镜像加速器阿里云文档</a><br><a href="https://github.com/portainer/portainer" target="_blank" rel="noopener">管理工具portainer仓库地址</a><br><a href="https://portainer.readthedocs.io/en/latest/deployment.html" target="_blank" rel="noopener">管理工具portainer官网地址</a></p>
@@ -891,31 +967,31 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">CREATE TABLE `employees` (</span><br><span class="line">  `emp_no` int(11) NOT NULL COMMENT '员工号',</span><br><span class="line">  `birth_date` date NOT NULL COMMENT '出生年月',</span><br><span class="line">  `first_name` varchar(14) NOT NULL COMMENT '名',</span><br><span class="line">  `last_name` varchar(16) NOT NULL COMMENT '姓',</span><br><span class="line">  `gender` enum('M','F') NOT NULL COMMENT '性别',</span><br><span class="line">  `hire_date` date NOT NULL COMMENT '雇佣时间',</span><br><span class="line">  `ids` char(18) DEFAULT NULL COMMENT '身份证号',</span><br><span class="line">  PRIMARY KEY (`emp_no`),</span><br><span class="line">  KEY `idx_last_first_name` (`last_name`,`first_name`)</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
 <p>下面SQL是遵循了最左匹配原则的语句</p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">SELECT * FROM employees WHERE last_name='Jones';</span><br></pre></td></tr></tbody></table></figure>
-<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_1.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_1.png" class></div>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">SELECT * FROM employees WHERE last_name='Jones' ORDER BY last_name,first_name desc;</span><br></pre></td></tr></tbody></table></figure>
-<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_2.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_2.png" class></div>
 
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">SELECT * FROM employees WHERE last_name='Jones' AND first_name='John';</span><br></pre></td></tr></tbody></table></figure>
-<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_3.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_3.png" class></div>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">SELECT * FROM employees  WHERE last_name='Jones'  AND (first_name='John' OR first_name='Jon');</span><br></pre></td></tr></tbody></table></figure>
-<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_4.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_4.png" class></div>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">SELECT * FROM employees  WHERE last_name='Jones'  AND first_name &gt;='M' AND first_name &lt; 'N';</span><br></pre></td></tr></tbody></table></figure>
-<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_5.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_5.png" class></div>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">SELECT * FROM employees WHERE last_name ='M' ORDER BY first_name,last_name desc;</span><br></pre></td></tr></tbody></table></figure>
-<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_6.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_sus_6.png" class></div>
 
 
 <p>不走索引的语句类型有 </p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">SELECT * FROM employees WHERE first_name='John';</span><br></pre></td></tr></tbody></table></figure>
-<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_error_1.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_error_1.png" class></div>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">SELECT * FROM employees WHERE last_name='Jones' OR first_name='John';</span><br></pre></td></tr></tbody></table></figure>
-<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_error_2.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_error_2.png" class></div>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">SELECT * FROM employees WHERE last_name='Jones' ORDER BY first_name,last_name desc;</span><br></pre></td></tr></tbody></table></figure>
-<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_error_3.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/result_error_3.png" class></div>
 
 
 <p>注意，排序时是否走索引受MySQL版本的影响，在MySQL8.0后，在排序查询中字段顺序不受影响。如图</p>
-<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/order_1.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/20/MySQL-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99/order_1.png" class></div>
 
 <p>但是在MySQL5.7及以下版本中，排序查询受字段顺序影响。</p>
 <p>参考文档</p>
@@ -990,21 +1066,21 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
     <url>/2019/11/08/Ubuntu/</url>
     <content><![CDATA[<p>为了学习docker来回顾Linux基础，本篇是基于Ubuntu操作系统18.04.3版本安装部署遇到问题或有用知识点的汇总整理。</p>
 <h1 id="ifconfig命令找不到"><a href="#ifconfig命令找不到" class="headerlink" title="ifconfig命令找不到"></a>ifconfig命令找不到</h1><p>问题描述： 在Vmware安装完成Ubuntu后，输入ifconfig提示：<em>Command ‘ifconfig’ not found, but can be installed with: sudo apt install net-tools</em>。当然官方提醒我们可以使用<code>sudo apt install net-tools</code>安装net-tools，然而并不如预想。</p>
-<div style="width: 70%;margin: left"><img src="/2019/11/08/Ubuntu/ifconfig_error.png" class="" title="ifconfig命令不存在"></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/08/Ubuntu/ifconfig_error.png" class title="ifconfig命令不存在"></div>
 <a id="more"></a>
 
 <p>解决方案： 执行语句 <code>sudo apt-get update &amp;&amp; sudo apt-get install net-tools</code><br>再输入ifconfig就正常啦。(apt-get用于自动从互联网的软件仓库中搜索、安装、升级或卸载软件。我们需要定期执行<code>apt-get update</code>，让我们缓存包在系统中的软件列表源是最新的)</p>
-<div style="width: 70%;margin: left"> <img src="/2019/11/08/Ubuntu/ifconfig_sess.png" class=""></div>
+<div style="width: 70%;margin: left"> <img src="/2019/11/08/Ubuntu/ifconfig_sess.png" class></div>
 
 <p>如果在过程中提示 <em>E: Could not get lock /var/lib/apt/lists/lock - open (11: Resource temporarily unavailable)</em>， 不用担心，这是因为上一次安装时异常退出导致锁残留，可直接删除掉这个锁文件，使用命令<code>sudo rm /var/lib/apt/lists/lock</code>。</p>
-<div style="width: 70%;margin: left"><img src="/2019/11/08/Ubuntu/ifconfig_lock.png" class=""></div>
+<div style="width: 70%;margin: left"><img src="/2019/11/08/Ubuntu/ifconfig_lock.png" class></div>
 
 <h1 id="编译安装PHP7-3-11"><a href="#编译安装PHP7-3-11" class="headerlink" title="编译安装PHP7.3.11"></a>编译安装PHP7.3.11</h1><ol>
 <li>官网 <a href="http://php.net/downloads.php" target="_blank" rel="noopener">http://php.net/downloads.php</a> 下载安装包到本地或者使用wget <code>wget http://cn2.php.net/distributions/php-7.3.11.tar.gz</code></li>
 <li>安装依赖包 libxml2-dev和 gcc<br>a. 如果遇到错误：<em>error:xml2-config not found.Please check your libxml2 installation.</em> ，说明依赖包libxml2不存在，需要安装使用命令<code>sudo apt-get update &amp;&amp; sudo apt-get install libxml2-dev -y</code>。<br> b. 如果安装libxml2过程又提示<em>Unable to fetch some archives, maybe run apt-get update or try with –fix-missing?</em>，可执行<code>apt-get install libxml2-dev -y --fix-missing</code>解决。多次尝试无效时，保证当前网络连接正常的基础上，执行<code>sudo apt-get clean</code>再进行后续操作。<br> c. 如果又报错<em>configure: error: no acceptable C compiler found in $PATH</em>，是因为你本地没有可执行编译的源文件，需要执行<code>sudo apt-get update &amp;&amp; sudo apt-get install gcc -y</code>解决。</li>
 <li>执行预编译，使用<code>./configure --prefix=/usr/local/php</code>(这个后面最好加上<code>--with-config-file-path=/usr/local/php/conf</code>，代表指定php.ini路径，否则后面需要自己去设置) 代表我要装到/usr/local/php里，配置文件放到conf里  </li>
 <li>安装，执行完成之后最后一定要执行<code>make</code>，这一步是真正的编译。然后还要执行<code>sudo make install</code>，这一步是拷贝到你的目标文件夹，否则/usr/local/php是不会有的。  </li>
-<li>验证，没有Hello world感觉不完整是不是。写个简单的PHP页面<div style="width: 60%;margin: left"><img src="/2019/11/08/Ubuntu/php_ver.png" class=""></div>
+<li>验证，没有Hello world感觉不完整是不是。写个简单的PHP页面<div style="width: 60%;margin: left"><img src="/2019/11/08/Ubuntu/php_ver.png" class></div>
 
 </li>
 </ol>
@@ -1021,7 +1097,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <li><p>新建 /usr/local/mysql文件, 修改归属用户权限<code>chown xugz:xugz mysql</code></p>
 </li>
 <li><p>初始化配置<br>详细参考 <a href="https://dev.mysql.com/doc/refman/8.0/en/installing-source-distribution.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/8.0/en/installing-source-distribution.html</a><br>mysqld是最终需要运行的可执行程序，不过我们一般使用mysqld_safe这个脚本来执行。进入安装目录 <code>cd /usr/local/mysql</code>，进入bin目录我们执行<code>mysqld --verbose --help</code>生成所有mysqld选项和可配置变量的列表</p>
-<div style="width: 60%;margin: left"><img src="/2019/11/08/Ubuntu/mysql_cnf.png" class="" title="mysql查找配置文件的顺序"></div>
+<div style="width: 60%;margin: left"><img src="/2019/11/08/Ubuntu/mysql_cnf.png" class title="mysql查找配置文件的顺序"></div>
 
 <p>如上图所示，MySQL先去寻找/etc/mysql/my.cnf文件，如果没有再去寻找 /etc/my.cnf，还没有再去寻找~/.my.cnf。我们只需要三选一创建文件，这里我选择大众常用的 /etc/my.cnf。执行<code>sudo vi /etc/my.cnf</code>添加以下内容</p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[client]</span><br><span class="line">port = 3306</span><br><span class="line">socket = /usr/local/mysql/data/mysql.sock</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">port  = 3306</span><br><span class="line">socket = /usr/local/mysql/data/mysql.sock</span><br><span class="line">basedir = /usr/local/mysql</span><br><span class="line">datadir = /usr/local/mysql/data</span><br></pre></td></tr></tbody></table></figure>
@@ -1034,7 +1110,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 </ol>
 <h1 id="Memcached安装"><a href="#Memcached安装" class="headerlink" title="Memcached安装"></a>Memcached安装</h1><ol>
 <li><p>安装包下载 <a href="http://memcached.org/downloads" target="_blank" rel="noopener">官网地址</a> 或者使用wget。官网已经给我们详细说明</p>
-<div style="width: 55%;margin: left"><img src="/2019/11/08/Ubuntu/memcache_install.png" class=""></div>
+<div style="width: 55%;margin: left"><img src="/2019/11/08/Ubuntu/memcache_install.png" class></div>
 </li>
 <li><p>安装依赖 <code>sudo apt-get install libevent-dev -y</code> 灵活点根据官网提示修改</p>
 </li>
@@ -1209,10 +1285,10 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <a id="more"></a>
 <h1 id="验证方式"><a href="#验证方式" class="headerlink" title="验证方式"></a>验证方式</h1><p>从客户端来看，SSH提供两种级别的安全验证。  </p>
 <h2 id="第一种级别"><a href="#第一种级别" class="headerlink" title="第一种级别"></a>第一种级别</h2><p>基于口令的安全验证<br>只要你知道自己帐号和口令，就可以登录到远程主机。所有传输的数据都会被加密，但是不能保证你正在连接的服务器就是你想连接的服务器。可能会有别的服务器在冒充真正的服务器，也就是受到“中间人”这种方式的攻击。</p>
-<img src="/2019/10/31/SSH%E7%A7%98%E9%92%A5%E6%93%8D%E4%BD%9C/passwd.png" class="" title="基于口令的安全验证图解">
+<img src="/2019/10/31/SSH%E7%A7%98%E9%92%A5%E6%93%8D%E4%BD%9C/passwd.png" class title="基于口令的安全验证图解">
 
 <h2 id="第二种级别"><a href="#第二种级别" class="headerlink" title="第二种级别"></a>第二种级别</h2><p>基于密钥的安全验证<br>依靠密钥，为本地创建，公钥要放到需要访问的服务器上。使用SSH连接到服务器，客户端向服务器发出请求，请求用你的密钥进行安全验证。服务器收到请求后在你的目录下寻找属于你的公共密钥，找到后和你发过来的进行比较。如果密钥一致，服务器用你的公钥加密随机字符串给到客户端。客户端使用私钥解密得到随机字符串后MD5加密给到服务端，服务端拿随机字符串进行同样操作后验证两个字符是否一致的过程。</p>
-<img src="/2019/10/31/SSH%E7%A7%98%E9%92%A5%E6%93%8D%E4%BD%9C/rsa.png" class="" title="基于密钥的安全验证图解">
+<img src="/2019/10/31/SSH%E7%A7%98%E9%92%A5%E6%93%8D%E4%BD%9C/rsa.png" class title="基于密钥的安全验证图解">
 <h3 id="SSH密钥操作"><a href="#SSH密钥操作" class="headerlink" title="SSH密钥操作"></a>SSH密钥操作</h3><ol>
 <li><p>客户端生成密钥对<br><code>ssh-keygen -t rsa</code><br>Tips:一路回车就好~</p>
 </li>
@@ -1314,7 +1390,7 @@ linux及OS X：一个字符，LF，在Linux下查看文件会在行末多个^M�
 <p> 增加以下内容</p>
  <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">uid = root #这里是系统用户 需要有备份目标文件夹操作权限 这个注释后续需要删除</span><br><span class="line">gid = root</span><br><span class="line">use chroot = yes</span><br><span class="line">hosts allow=*</span><br><span class="line">max connections = 5</span><br><span class="line">port = 873</span><br><span class="line">timeout = 900</span><br><span class="line">pid file = /var/run/rsyncd.pid</span><br><span class="line">lock file = /var/run/rsync.lock</span><br><span class="line">log file = /var/log/rsyncd.log</span><br><span class="line">motd file = /etc/rsyncd.motd</span><br><span class="line">[backup]</span><br><span class="line">path = /var/www/backup</span><br><span class="line">comment = Hi</span><br><span class="line">read only = false</span><br><span class="line">list =yes</span><br><span class="line">auth users = rsyncuser</span><br><span class="line">secrets file =/etc/rsync.passwd</span><br></pre></td></tr></tbody></table></figure>
 <p> 编辑完成保存退出<br> 具体配置注释见下图</p>
- <img src="/2019/10/29/rsync+sersync/conifg.png" class="" title="/etc/rsyncd.conf配置说明">
+ <img src="/2019/10/29/rsync+sersync/conifg.png" class title="/etc/rsyncd.conf配置说明">
 </li>
 <li><p>在secrets file指定的用户密码文件<br>vim /etc/rsync.passwd　　内容格式：用户名：密码,可以设置多个，每行一个用户名:密码<br>执行<code>echo "rsyncuser:password" &gt;&gt; /etc/rsync.passwd</code><br>把内容追加到rsync.passwd末尾<br>然后，更改文件的读写权限为600<br><code>chmod 600 /etc/rsync.passwd</code></p>
 </li>
@@ -1368,7 +1444,7 @@ fi</code></pre></li>
 </ol>
 </li>
 </ol>
-<h1 id="rsync参数说明"><a href="#rsync参数说明" class="headerlink" title="rsync参数说明"></a>rsync参数说明</h1><div style="width:80%;margin:left"><img src="/2019/10/29/rsync+sersync/opation.png" class=""></div>
+<h1 id="rsync参数说明"><a href="#rsync参数说明" class="headerlink" title="rsync参数说明"></a>rsync参数说明</h1><div style="width:80%;margin:left"><img src="/2019/10/29/rsync+sersync/opation.png" class></div>
 
 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p> <a href="https://blog.whsir.com/post-1097.html" target="_blank" rel="noopener">https://blog.whsir.com/post-1097.html</a><br><a href="https://blog.csdn.net/chrisjingu/article/details/78317907" target="_blank" rel="noopener">https://blog.csdn.net/chrisjingu/article/details/78317907</a><br><a href="https://www.jianshu.com/p/31a67de3f669" target="_blank" rel="noopener">https://www.jianshu.com/p/31a67de3f669</a></p>
 <script>
@@ -1547,11 +1623,11 @@ fi</code></pre></li>
 <a id="more"></a>
 <ol>
 <li><p>win+r调出运行键入<code>cmd</code>后回车打开，使用<code>tasklist</code>查看本机进程。查询得到的字段有： 映像名称，PID(进程ID)，会话名，会话#，内存使用。如下图：</p>
-<img src="/2019/10/25/Gitbash_error/tasklist_ret.jpg" class="" title="tasklist运行结果">
+<img src="/2019/10/25/Gitbash_error/tasklist_ret.jpg" class title="tasklist运行结果">
 <p>如图 smss.exe 的进程ID为 520(你看随便找个进程都是爱你的数字)，咳咳</p>
 </li>
 <li><p>找到git-bash.exe对应的进程号，比如我的是 12184，然后使用命令 <code>taskkill /pid 12184 -t -f</code> 终止ID为12184的进程。</p>
-<img src="/2019/10/25/Gitbash_error/taskkill_ret.png" class="" title="taskkill命令运行结果"></li>
+<img src="/2019/10/25/Gitbash_error/taskkill_ret.png" class title="taskkill命令运行结果"></li>
 <li><p>找到node.exe对应的进程号，比如我的是 868，然后使用命令 <code>taskkill /pid 868 -t -f</code> 终止ID为868的进程。</p>
 </li>
 </ol>
@@ -1581,6 +1657,45 @@ fi</code></pre></li>
       <tags>
         <tag>Git</tag>
         <tag>taskkill</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux的crontab命令</title>
+    <url>/2019/10/23/Linux-crontab/</url>
+    <content><![CDATA[<p>Linux下的任务调度分为两类：系统任务调度和用户任务调度。<br>系统任务调度：系统周期性所要执行的工作，比如写缓存数据到硬盘、日志清理等。在/etc目录下有一个crontab文件，这个就是系统任务调度的配置文件。<br>用户任务调度：用户定期要执行的工作，比如用户数据备份、定时邮件提醒等。用户可以使用 crontab 工具来定制自己的计划任务。  </p>
+<a id="more"></a>
+<p>所有用户定义的crontab文件都被保存在/var/spool/cron目录中。其文件名与用户名一致，使用者权限文件如下：<br><code>/etc/cron.deny</code>     该文件中所列用户不允许使用crontab命令<br><code>/etc/cron.allow</code>   该文件中所列用户允许使用crontab命令<br><code>/var/spool/cron/</code>   所有用户crontab文件存放的目录,以用户名命名  </p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">分 时 日 月 星期 命令</span><br><span class="line"># .---------------- minute (0 - 59)</span><br><span class="line"># |  .------------- hour (0 - 23)</span><br><span class="line"># |  |  .---------- day of month (1 - 31)</span><br><span class="line"># |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span><br><span class="line"># |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span><br><span class="line"># |  |  |  |  |</span><br><span class="line"># *  *  *  *  * user-name  command to be executed</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在以上各个字段中，还可以使用以下特殊字符：<br>星号（*）：代表所有可能的值，例如month字段如果是星号，则表示在满足其它字段的制约条件后每月都执行该命令操作。<br>逗号（,）：可以用逗号隔开的值指定一个列表范围，例如，“1,2,5,7,8,9”<br>中杠（-）：可以用整数之间的中杠表示一个整数范围，例如“2-6”表示“2,3,4,5,6”<br>正斜线（/）：可以用正斜线指定时间的间隔频率，例如“0-23/2”表示每两小时执行一次。同时正斜线可以和星号一起使用，例如*/10，如果用在minute字段，表示每十分钟执行一次。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">/sbin/service crond start    // 启动服务   或者使用  service crond start 命令 手动启动crontab服务</span><br><span class="line">/sbin/service crond stop     // 关闭服务</span><br><span class="line">/sbin/service crond restart  // 重启服务</span><br><span class="line">/sbin/service crond reload   // 重新载入配置</span><br><span class="line"></span><br><span class="line">chkconfig –level 35 crond on // 加入开机自动启动</span><br><span class="line">service crond status // 查看crontab服务状态</span><br></pre></td></tr></tbody></table></figure>
+
+<p>crontab (选项 例如:-e)(参数 crontab文件)<br>-e：编辑该用户的计时器设置；<br>-l：列出该用户的计时器设置；<br>-r：删除该用户的计时器设置；<br>-u&lt;用户名称&gt;：指定要设定计时器的用户名称。    </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>crontab</tag>
       </tags>
   </entry>
   <entry>
@@ -1712,7 +1827,7 @@ fi</code></pre></li>
 
 </li>
 </ol>
-<h1 id="系统目录结构"><a href="#系统目录结构" class="headerlink" title="系统目录结构"></a>系统目录结构</h1><div style="width: 50%;margin: left"><img src="/2019/10/23/Linux-base/dir_tree.png" class="" title="系统目录结构树"></div>
+<h1 id="系统目录结构"><a href="#系统目录结构" class="headerlink" title="系统目录结构"></a>系统目录结构</h1><div style="width: 50%;margin: left"><img src="/2019/10/23/Linux-base/dir_tree.png" class title="系统目录结构树"></div>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">/bin   存放二进制可执行文件(ls,cat,mkdir等)，存放系统命令</span><br><span class="line">/boot  核心系统启动文件，存放用于系统引导时使用的各种文件</span><br><span class="line">/dev   存放硬件设备，使用里面设备需要挂载,糖炒栗子：mount /dev/cdrom /media/</span><br><span class="line">/etc   存放系统程序管理和配置文件</span><br><span class="line">/home  存放除了root用户之外的所有用户文件的根目录，比如用户user的主目录就是/home/user，可以用~user表示</span><br><span class="line">/lib   存放跟文件系统中的程序运行所需要的共享库及内核模块。共享库又叫动态链接共享库，作用类似windows里的.dll文件，存放了根文件系统程序运行所需的共享文件。</span><br><span class="line">/media 空目录，不可删，用于挂在光盘使用</span><br><span class="line">/mnt   空测试目录，系统管理员安装临时文件系统的安装点，系统提供这个目录是让用户临时挂载其他的文件系统</span><br><span class="line">/opt   空测试目录，额外安装的可选应用程序包所放置的位置。一般情况下，我们可以把tomcat等都安装到这里。</span><br><span class="line">/proc  虚拟文件系统目录，是系统内存的映射。存放cpu、内存和硬盘等设备信息，可直接访问这个目录来获取系统信息。</span><br><span class="line">/root  超级用户（root）的主目录</span><br><span class="line">/run   程序进程PID </span><br><span class="line">/sbin  存放二进制可执行文件，只有root才能访问。这里存放的是系统管理员使用的系统级别的管理命令和程序。如ifconfig等</span><br><span class="line">/srv   自己的程序或源代码的放置目录</span><br><span class="line">/sys   内核信息文件</span><br><span class="line">/tmp   用于存放各种临时文件，是公用的临时文件存储点</span><br><span class="line">/usr   非系统程序用于存放系统应用程序，比较重要的目录/usr/local 本地系统管理员软件安装目录（安装系统级的应用）。这是最庞大的目录，要用到的应用程序和文件几乎都在这个目录。</span><br><span class="line">/var   用于存放运行时需要改变数据的文件，也是某些大文件的溢出区，比方说各种服务的日志文件（系统或程序日志等）</span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h1><ol>
@@ -1734,7 +1849,7 @@ fi</code></pre></li>
 <li>末行模式 :末行命令</li>
 <li>视图模式 visual</li>
 </ol>
-<h2 id="常用模式切换"><a href="#常用模式切换" class="headerlink" title="常用模式切换"></a>常用模式切换</h2><div style="width: 44%;margin: left"><img src="/2019/10/23/Linux-base/vi_model.png" class="" title="简单的模式切换"></div>
+<h2 id="常用模式切换"><a href="#常用模式切换" class="headerlink" title="常用模式切换"></a>常用模式切换</h2><div style="width: 44%;margin: left"><img src="/2019/10/23/Linux-base/vi_model.png" class title="简单的模式切换"></div>
 
 <p>命令模式 =&gt; 输入模式<br>输入模式 =&gt; 命令模式 按下<code>esc</code><br>命令模式 =&gt; 末行模式 使用 <code>shift+:</code>输入<code>x</code>保存退出<br>末行模式 =&gt; 命令模式 按下<code>esc</code><br>命令模式 =&gt; 视图模式 使用<code>v</code><br> 按<code>v</code>键再按上下左右进行视图选中，进行快速缩进</p>
 <h3 id="命令模式常用命令"><a href="#命令模式常用命令" class="headerlink" title="命令模式常用命令"></a>命令模式常用命令</h3><p> 上<code>k</code>下<code>j</code>左<code>h</code>右<code>l</code>撤销用<code>u</code>恢复用ctrl+<code>r</code>(撤销多了恢复，两个配合使用)<br> 复制当前行 <code>yy</code> 复制多行 <code>nyy</code>, 比如<code>3yy</code>为复制三行<br> 粘贴到下一行 <code>p</code>, 粘贴到下一行n次 <code>np</code>.  粘贴到上一行 <code>P</code>, 粘贴到上一行n次 <code>nP</code></p>
@@ -1839,17 +1954,12 @@ fi</code></pre></li>
       </tags>
   </entry>
   <entry>
-    <title>Linux的crontab命令</title>
-    <url>/2019/10/23/Linux-crontab/</url>
-    <content><![CDATA[<p>Linux下的任务调度分为两类：系统任务调度和用户任务调度。<br>系统任务调度：系统周期性所要执行的工作，比如写缓存数据到硬盘、日志清理等。在/etc目录下有一个crontab文件，这个就是系统任务调度的配置文件。<br>用户任务调度：用户定期要执行的工作，比如用户数据备份、定时邮件提醒等。用户可以使用 crontab 工具来定制自己的计划任务。  </p>
+    <title>TP框架-上传apk包文件</title>
+    <url>/2019/06/22/Upload_apk/</url>
+    <content><![CDATA[<p>TP中的写法，增加了根据文件mime类型二次校验上传文件的类型。</p>
 <a id="more"></a>
-<p>所有用户定义的crontab文件都被保存在/var/spool/cron目录中。其文件名与用户名一致，使用者权限文件如下：<br><code>/etc/cron.deny</code>     该文件中所列用户不允许使用crontab命令<br><code>/etc/cron.allow</code>   该文件中所列用户允许使用crontab命令<br><code>/var/spool/cron/</code>   所有用户crontab文件存放的目录,以用户名命名  </p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">分 时 日 月 星期 命令</span><br><span class="line"># .---------------- minute (0 - 59)</span><br><span class="line"># |  .------------- hour (0 - 23)</span><br><span class="line"># |  |  .---------- day of month (1 - 31)</span><br><span class="line"># |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span><br><span class="line"># |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span><br><span class="line"># |  |  |  |  |</span><br><span class="line"># *  *  *  *  * user-name  command to be executed</span><br></pre></td></tr></tbody></table></figure>
 
-<p>在以上各个字段中，还可以使用以下特殊字符：<br>星号（*）：代表所有可能的值，例如month字段如果是星号，则表示在满足其它字段的制约条件后每月都执行该命令操作。<br>逗号（,）：可以用逗号隔开的值指定一个列表范围，例如，“1,2,5,7,8,9”<br>中杠（-）：可以用整数之间的中杠表示一个整数范围，例如“2-6”表示“2,3,4,5,6”<br>正斜线（/）：可以用正斜线指定时间的间隔频率，例如“0-23/2”表示每两小时执行一次。同时正斜线可以和星号一起使用，例如*/10，如果用在minute字段，表示每十分钟执行一次。</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">/sbin/service crond start    // 启动服务   或者使用  service crond start 命令 手动启动crontab服务</span><br><span class="line">/sbin/service crond stop     // 关闭服务</span><br><span class="line">/sbin/service crond restart  // 重启服务</span><br><span class="line">/sbin/service crond reload   // 重新载入配置</span><br><span class="line"></span><br><span class="line">chkconfig –level 35 crond on // 加入开机自动启动</span><br><span class="line">service crond status // 查看crontab服务状态</span><br></pre></td></tr></tbody></table></figure>
-
-<p>crontab (选项 例如:-e)(参数 crontab文件)<br>-e：编辑该用户的计时器设置；<br>-l：列出该用户的计时器设置；<br>-r：删除该用户的计时器设置；<br>-u&lt;用户名称&gt;：指定要设定计时器的用户名称。    </p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ApiTitle</span>    (上传apk文件)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ApiSummary</span>  (在线升级)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ApiMethod</span>   (POST)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ApiParams</span>   (name="apk", type="file", required=true, description="apk包")</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ApiReturnParams</span>   (name="version_code", type="string", required=false, description="版本号")</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ApiReturnParams</span>   (name="device_type", type="string", required=false, description="设备类型")</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ApiReturnParams</span>   (name="device_model", type="string", required=false, description="设备型号")</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ApiReturnParams</span>   (name="url", type="string", required=false, description="路径地址")</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">upload_apk</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    $file_name = key($_FILES);</span><br><span class="line">    $file = request()-&gt;file($file_name);</span><br><span class="line">    <span class="keyword">if</span> (!$file) {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;error(<span class="string">"文件上传失败"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!$file-&gt;checkExt(<span class="string">'apk'</span>)) {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;error(<span class="string">"不允许上传此类型文件！"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    $path = ROOT_PATH . <span class="string">'public'</span> . DS . <span class="string">'upload'</span> . DS . <span class="string">'apk'</span>;</span><br><span class="line">    $name = iconv(<span class="string">'utf-8'</span>, <span class="string">'gbk'</span>, $file-&gt;getInfo()[<span class="string">'name'</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 包名格式： 设备型号_版本号.apk</span></span><br><span class="line">    <span class="keyword">list</span>($device_model, $version_code) = explode(<span class="string">'_'</span>, $name);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>($device_model) || <span class="keyword">empty</span>($version_code)) {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;error(<span class="string">"文件上传失败，版本号解析异常！"</span>);</span><br><span class="line">    }</span><br><span class="line">    $service = <span class="keyword">new</span> LibraryUpgrade();</span><br><span class="line">    $device_version = $service-&gt;get_newest_version($device_model);</span><br><span class="line"></span><br><span class="line">    $info = $file-&gt;move($path, $name);</span><br><span class="line">    <span class="keyword">if</span> (!$info) {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;error(<span class="string">"上传失败"</span>);</span><br><span class="line">    }</span><br><span class="line">    $tmp_path = DS . <span class="string">'upload'</span> . DS . <span class="string">'apk'</span> . DS . $name;</span><br><span class="line"></span><br><span class="line">    $save_path = str_replace(DS, <span class="string">"/"</span>, $tmp_path);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 根据文件的mime类型二次校验</span></span><br><span class="line">    $finfo = finfo_open(FILEINFO_MIME_TYPE);</span><br><span class="line">    $mime = finfo_file($finfo, <span class="string">'.'</span>.$save_path); </span><br><span class="line">    finfo_close($finfo);</span><br><span class="line">    <span class="keyword">if</span> ($mime != <span class="string">'application/java-archive'</span>) {</span><br><span class="line">        unlink($path . <span class="string">"/"</span> . $name);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;error(<span class="string">"上传失败，文件类型异常！"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    $return = [</span><br><span class="line">        <span class="string">'url'</span> =&gt; $save_path,</span><br><span class="line">        <span class="string">'version_code'</span> =&gt; substr($version_code, <span class="number">0</span>, <span class="number">-4</span>),</span><br><span class="line">        <span class="string">'device_type'</span> =&gt; $device_version[<span class="string">'device_type'</span>] ?? <span class="string">''</span>,</span><br><span class="line">        <span class="string">'device_model'</span> =&gt; $device_model</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;success(<span class="string">"成功"</span>, $return);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1870,11 +1980,48 @@ fi</code></pre></li>
           });
       </script>]]></content>
       <categories>
-        <category>Linux</category>
+        <category>PHP</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
-        <tag>crontab</tag>
+        <tag>PHP</tag>
+        <tag>ThinkPHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TP框架-批量文件</title>
+    <url>/2019/06/21/Upload_file/</url>
+    <content><![CDATA[<p>TP框架，批量上传文件简单demo</p>
+<a id="more"></a>
+
+
+<figure class="highlight php"><figcaption><span>controller</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">fire</span>\<span class="title">controller</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">app</span>\<span class="title">fire</span>\<span class="title">library</span>\<span class="title">Upload</span> <span class="title">as</span> <span class="title">LibraryUpload</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ApiSector</span> (上传类)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Upload</span> <span class="keyword">extends</span> <span class="title">Api</span></span></span><br><span class="line"><span class="class"></span>{</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@ApiTitle</span>    (批量上传文件)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@ApiSummary</span>  ()</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@ApiMethod</span>   (POST)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@ApiParams</span>   (name="files", type="file", required=true, description="文件")</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@ApiReturnParams</span>   (name="data", type="array", required=false, description="列表")</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@ApiReturnParams</span>   (name="|- file_name", type="string", required=false, description="存储路径")</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@ApiReturnParams</span>   (name="|- save_path", type="string", required=false, description="文件名")</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">file</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>{</span><br><span class="line">        $files = request()-&gt;file(<span class="string">'files'</span>);</span><br><span class="line">        <span class="keyword">if</span> (!$files) {</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;error(<span class="string">"文件上传失败"</span>);</span><br><span class="line">        }</span><br><span class="line">        $service = <span class="keyword">new</span> LibraryUpload();</span><br><span class="line">        $return = $service-&gt;multiple_upload($files);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;success(<span class="string">"成功"</span>, $return);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight php"><figcaption><span>lib类</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">fire</span>\<span class="title">library</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">File</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 文件上传类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Upload</span></span></span><br><span class="line"><span class="class"></span>{</span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 批量上传文件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array $files</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">multiple_upload</span><span class="params">($files)</span></span></span><br><span class="line"><span class="function">    </span>{</span><br><span class="line">      </span><br><span class="line">        $path = ROOT_PATH . <span class="string">'public'</span> . DS . <span class="string">'upload'</span> . DS . <span class="string">'files'</span>;</span><br><span class="line">        $retrun = [];</span><br><span class="line">        $flag = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">foreach</span> ($files <span class="keyword">as</span> $file) {</span><br><span class="line">            <span class="keyword">if</span> ($file) {</span><br><span class="line">                $name = $file-&gt;getInfo()[<span class="string">'name'</span>];</span><br><span class="line">                $upload = $file-&gt;move($path);</span><br><span class="line">                <span class="keyword">if</span> ($upload) {</span><br><span class="line">                    $tmp_path = DS . <span class="string">'upload'</span> . DS . <span class="string">'files'</span> . DS . $name;</span><br><span class="line">                    $save_path = str_replace(DS, <span class="string">"/"</span>, $tmp_path);</span><br><span class="line"></span><br><span class="line">                    $retrun[] = [</span><br><span class="line">                        <span class="string">'file_name'</span> =&gt; $name,</span><br><span class="line">                        <span class="string">'save_path'</span> =&gt; $save_path</span><br><span class="line">                    ];</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    $flag = <span class="keyword">false</span>;</span><br><span class="line">                }</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                $flag = <span class="keyword">false</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (!$flag) {</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> $retrun;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>PHP</category>
+      </categories>
+      <tags>
+        <tag>PHP</tag>
+        <tag>ThinkPHP</tag>
       </tags>
   </entry>
   <entry>
@@ -1961,6 +2108,54 @@ fi</code></pre></li>
 </ol>
 <p>我们也可以通过在文章使用<code>&lt;!-- more --&gt;</code>标志来精确控制文章的摘要预览，比如这篇文章就是在这个段落的末尾添加了该标志，所以本文在首页的预览就会显示到这个段落为止。</p>
 <p>本篇就这样吧，拜拜喽。<span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/2728.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png?v8">✨</span><span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/2728.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/2728.png?v8">✨</span>  </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo添加emoji表情</title>
+    <url>/2019/06/19/Hexo-addemjo/</url>
+    <content><![CDATA[<p>废话不多说，直接动手干吧。 具体表情参考 <a href="https://github.com/caiyongji/emoji-list" target="_blank" rel="noopener">GFM 表情列表</a> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f61c.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f61c.png?v8">😜</span> </p>
+<a id="more"></a>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">npm install hexo-filter-github-emojis --save</span><br><span class="line">npm un hexo-renderer-stylus --save</span><br><span class="line">npm i hexo-renderer-stylus-plus --save</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="打开-站点配置文件，添加以下内容"><a href="#打开-站点配置文件，添加以下内容" class="headerlink" title="打开 站点配置文件，添加以下内容"></a>打开 站点配置文件，添加以下内容</h1><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">githubEmojis:</span><br><span class="line">  enable: true</span><br><span class="line">  className: github-emoji</span><br><span class="line">  unicode: false</span><br><span class="line">  styles:</span><br><span class="line">  localEmojis:</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="解决渲染错误问题"><a href="#解决渲染错误问题" class="headerlink" title="解决渲染错误问题"></a>解决渲染错误问题</h1><ul>
+<li>修改 <code>themes/next/layout/_partials/head.swig</code>, 解决渲染错误问题，渲染 emoji 表情时会被自动加上 a 标签<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">&lt;script type="text/javascript" id="hexo.configurations"&gt;</span><br><span class="line">  var NexT = window.NexT || {};</span><br><span class="line">  var CONFIG = {</span><br><span class="line">    root: '{{ theme.root }}',</span><br><span class="line">    scheme: '{{ theme.scheme }}',</span><br><span class="line">    sidebar: {{ theme.sidebar | json_encode }},</span><br><span class="line">    fancybox: {{ theme.fancybox }},</span><br><span class="line">    tabs: {{ theme.tabs.enable }},</span><br><span class="line">    motion: {{ theme.use_motion }},</span><br><span class="line">    duoshuo: {</span><br><span class="line">      userId: '{{ theme.duoshuo_info.user_id | default() }}',</span><br><span class="line">      author: '{{ theme.duoshuo_info.admin_nickname | default(__('author'))}}'</span><br><span class="line">    },</span><br><span class="line">    algolia: {</span><br><span class="line">      applicationID: '{{ theme.algolia.applicationID }}',</span><br><span class="line">      apiKey: '{{ theme.algolia.apiKey }}',</span><br><span class="line">      indexName: '{{ theme.algolia.indexName }}',</span><br><span class="line">      hits: {{ theme.algolia_search.hits | json_encode }},</span><br><span class="line">      labels: {{ theme.algolia_search.labels | json_encode }}</span><br><span class="line">    },</span><br><span class="line">    *{# ↓ 在这里修改，其他未动 ↓ #}</span><br><span class="line">    {# 添加 emojis 参数 #}</span><br><span class="line">    emojis: {</span><br><span class="line">      className: '{{ config.githubEmojis.className | default('github-emoji') }}'</span><br><span class="line">    }*</span><br><span class="line">  };</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></tbody></table></figure></li>
+<li>修改 <code>themes/next/source/js/src/utils.js</code><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">// 注意看 CONFIG.emojis.className 那一行，其他未动</span><br><span class="line">$('.content img')</span><br><span class="line">  .not('[hidden]')</span><br><span class="line">  .not('.group-picture img, .post-gallery img, *img.' + CONFIG.emojis.className*)</span><br><span class="line">  .each(function () {</span><br><span class="line">  ……</span><br></pre></td></tr></tbody></table></figure>
+
+</li>
+</ul>
+<h1 id="自定义emoji-样式"><a href="#自定义emoji-样式" class="headerlink" title="自定义emoji 样式"></a>自定义emoji 样式</h1><p>在 <code>站点配置文件</code> 中，我们配置：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">githubEmojis:</span><br><span class="line">  enable: true</span><br><span class="line">  className: github-emoji</span><br><span class="line">  unicode: false</span><br><span class="line">  styles:</span><br><span class="line">  localEmojis:</span><br></pre></td></tr></tbody></table></figure>
+<p>在 <code>themes/next/source/css/_variables/base.styl</code> 中使用 hexo-site-config 方法获取 <code>站点配置文件</code> 中的值，我们添加</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">// Github emojis class name</span><br><span class="line">// --------------------------------------------------</span><br><span class="line">get_emoji_class() {</span><br><span class="line">  emoji_class = hexo-site-config('githubEmojis.className')</span><br><span class="line">  return emoji_class ? emoji_class : 'github-emoji'</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">$github-emojis-class-name   = get_emoji_class()</span><br></pre></td></tr></tbody></table></figure>
+<p>最后在自定义样式文件 <code>themes/next/source/css/_custom/custom.styl</code> 中添加：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">img.{$github-emojis-class-name} {</span><br><span class="line">  display: inline;</span><br><span class="line">  height: 1.7em;</span><br><span class="line">  width: 1.7em;</span><br><span class="line">  vertical-align: -0.4em;</span><br><span class="line">  border: none !important;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>到这里就可以啦。<span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f340.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f340.png?v8">🍀</span>  </p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2099,60 +2294,12 @@ header.post-header {
       </tags>
   </entry>
   <entry>
-    <title>Hexo添加emoji表情</title>
-    <url>/2019/06/19/Hexo-addemjo/</url>
-    <content><![CDATA[<p>废话不多说，直接动手干吧。 具体表情参考 <a href="https://github.com/caiyongji/emoji-list" target="_blank" rel="noopener">GFM 表情列表</a> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f61c.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f61c.png?v8">😜</span> </p>
-<a id="more"></a>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">npm install hexo-filter-github-emojis --save</span><br><span class="line">npm un hexo-renderer-stylus --save</span><br><span class="line">npm i hexo-renderer-stylus-plus --save</span><br></pre></td></tr></tbody></table></figure>
-
-<h1 id="打开-站点配置文件，添加以下内容"><a href="#打开-站点配置文件，添加以下内容" class="headerlink" title="打开 站点配置文件，添加以下内容"></a>打开 站点配置文件，添加以下内容</h1><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">githubEmojis:</span><br><span class="line">  enable: true</span><br><span class="line">  className: github-emoji</span><br><span class="line">  unicode: false</span><br><span class="line">  styles:</span><br><span class="line">  localEmojis:</span><br></pre></td></tr></tbody></table></figure>
-
-<h1 id="解决渲染错误问题"><a href="#解决渲染错误问题" class="headerlink" title="解决渲染错误问题"></a>解决渲染错误问题</h1><ul>
-<li>修改 <code>themes/next/layout/_partials/head.swig</code>, 解决渲染错误问题，渲染 emoji 表情时会被自动加上 a 标签<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">&lt;script type="text/javascript" id="hexo.configurations"&gt;</span><br><span class="line">  var NexT = window.NexT || {};</span><br><span class="line">  var CONFIG = {</span><br><span class="line">    root: '{{ theme.root }}',</span><br><span class="line">    scheme: '{{ theme.scheme }}',</span><br><span class="line">    sidebar: {{ theme.sidebar | json_encode }},</span><br><span class="line">    fancybox: {{ theme.fancybox }},</span><br><span class="line">    tabs: {{ theme.tabs.enable }},</span><br><span class="line">    motion: {{ theme.use_motion }},</span><br><span class="line">    duoshuo: {</span><br><span class="line">      userId: '{{ theme.duoshuo_info.user_id | default() }}',</span><br><span class="line">      author: '{{ theme.duoshuo_info.admin_nickname | default(__('author'))}}'</span><br><span class="line">    },</span><br><span class="line">    algolia: {</span><br><span class="line">      applicationID: '{{ theme.algolia.applicationID }}',</span><br><span class="line">      apiKey: '{{ theme.algolia.apiKey }}',</span><br><span class="line">      indexName: '{{ theme.algolia.indexName }}',</span><br><span class="line">      hits: {{ theme.algolia_search.hits | json_encode }},</span><br><span class="line">      labels: {{ theme.algolia_search.labels | json_encode }}</span><br><span class="line">    },</span><br><span class="line">    *{# ↓ 在这里修改，其他未动 ↓ #}</span><br><span class="line">    {# 添加 emojis 参数 #}</span><br><span class="line">    emojis: {</span><br><span class="line">      className: '{{ config.githubEmojis.className | default('github-emoji') }}'</span><br><span class="line">    }*</span><br><span class="line">  };</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></tbody></table></figure></li>
-<li>修改 <code>themes/next/source/js/src/utils.js</code><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">// 注意看 CONFIG.emojis.className 那一行，其他未动</span><br><span class="line">$('.content img')</span><br><span class="line">  .not('[hidden]')</span><br><span class="line">  .not('.group-picture img, .post-gallery img, *img.' + CONFIG.emojis.className*)</span><br><span class="line">  .each(function () {</span><br><span class="line">  ……</span><br></pre></td></tr></tbody></table></figure>
-
-</li>
-</ul>
-<h1 id="自定义emoji-样式"><a href="#自定义emoji-样式" class="headerlink" title="自定义emoji 样式"></a>自定义emoji 样式</h1><p>在 <code>站点配置文件</code> 中，我们配置：</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">githubEmojis:</span><br><span class="line">  enable: true</span><br><span class="line">  className: github-emoji</span><br><span class="line">  unicode: false</span><br><span class="line">  styles:</span><br><span class="line">  localEmojis:</span><br></pre></td></tr></tbody></table></figure>
-<p>在 <code>themes/next/source/css/_variables/base.styl</code> 中使用 hexo-site-config 方法获取 <code>站点配置文件</code> 中的值，我们添加</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">// Github emojis class name</span><br><span class="line">// --------------------------------------------------</span><br><span class="line">get_emoji_class() {</span><br><span class="line">  emoji_class = hexo-site-config('githubEmojis.className')</span><br><span class="line">  return emoji_class ? emoji_class : 'github-emoji'</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">$github-emojis-class-name   = get_emoji_class()</span><br></pre></td></tr></tbody></table></figure>
-<p>最后在自定义样式文件 <code>themes/next/source/css/_custom/custom.styl</code> 中添加：</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">img.{$github-emojis-class-name} {</span><br><span class="line">  display: inline;</span><br><span class="line">  height: 1.7em;</span><br><span class="line">  width: 1.7em;</span><br><span class="line">  vertical-align: -0.4em;</span><br><span class="line">  border: none !important;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>到这里就可以啦。<span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f340.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f340.png?v8">🍀</span>  </p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>网络工程师基础</title>
     <url>/2018/10/25/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<h1 id="OSI"><a href="#OSI" class="headerlink" title="OSI"></a>OSI</h1><p>OSI（开放系统互联(Open System Interconnection)），把网络通信的工作分为7层,分别是物理层,数据链路层,网络层,传输层,会话层,表示层和应用层。</p>
 <a id="more"></a>  
 <p>通俗理解如下：<br>物理层就是布线、光纤和其它电子设备，用来把两台网络通信设备连接在一起的东西。<br>数据链路层就是MAC地址、交换机或者网卡和驱动程序，主要任务是把数据帧转换成二进制位供一层处理。<br>网络层最主要的设备是路由器，主要作用是为了在数据外围针对IP地址路由的交换。<br>传输层作用是每台计算机每台应用程序与他人发生通讯，互联端口的协议。<br>会话层，两者之间的通讯过程就是一次会话过程。<br>表示层，规范编码问题。负责转换为适合于OSI系统内部使用的传送语法。即提供格式化的表示和转换数据服务。数据的压缩和解压缩， 加密和解密等工作。<br>应用层用于应用程序，确定进程之间通信的性质以满足用户需要以及提供网络与用户应用软件之间的接口服务如果你的程序需要一种具体格式的数据。  </p>
-<img src="/2018/10/25/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B/osi_desc.png" class="" title="OSI的七层模型">  
+<img src="/2018/10/25/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B/osi_desc.png" class title="OSI的七层模型">  
 
 
 <h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><p>为数据端设备提供传送数据的通路，传输数据</p>
@@ -2279,8 +2426,8 @@ header.post-header {
 <p><strong>任务列表</strong></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">- [x] Task 1</span><br><span class="line">- [ ] Task 2</span><br></pre></td></tr></tbody></table></figure>
 <ul>
-<li><input checked="" disabled="" type="checkbox"> Task 1</li>
-<li><input disabled="" type="checkbox"> Task 2</li>
+<li><input checked disabled type="checkbox"> Task 1</li>
+<li><input disabled type="checkbox"> Task 2</li>
 </ul>
 <p>本篇结束了，拜拜喽。<span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f490.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f490.png?v8">💐</span>  </p>
 <script>

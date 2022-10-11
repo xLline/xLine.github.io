@@ -438,7 +438,7 @@
 <p>使用<code>ps -ef | grep redis</code>检查两个进程是否正常存在。<br>使用<code>./redis-cli -h 127.0.0.1 -p 6380</code>命令指定端口和服务器进入客户端，使用<code>info</code>命令查看Replication选项确定是否配置成功，使用<code>role</code>也可。</p>
 <figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master <span class="comment"># 角色，master代表是主机</span></span><br><span class="line">connected_slaves:1 <span class="comment"># 连接的从机的数量 我们这里只配置了6381一个</span></span><br><span class="line">slave0:ip=127.0.0.1,port=6381,state=online,offset=280,lag=0</span><br></pre></td></tr></tbody></table></figure>
 <p>下图为验证主备功能的。图片显示6380主服务器可读可写，6381备服只有读取权限。</p>
-<img src="/2020/05/16/Redis-config/slave_readonly.png" class="" title="主备功能数据获取验证"> 
+<img src="/2020/05/16/Redis-config/slave_readonly.png" class title="主备功能数据获取验证"> 
 
 <h1 id="使用哨兵模式实现主从切换"><a href="#使用哨兵模式实现主从切换" class="headerlink" title="使用哨兵模式实现主从切换"></a>使用哨兵模式实现主从切换</h1><p><a href="http://www.redis.cn/topics/sentinel.html" target="_blank" rel="noopener">参考Redis中文文档中对哨兵的描述</a></p>
 <blockquote>
@@ -453,9 +453,9 @@
 <figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 端口</span></span><br><span class="line">port <span class="number">6380</span>  </span><br><span class="line"><span class="comment">// 工作目录</span></span><br><span class="line">dir /usr/local/redis/tmp</span><br><span class="line"><span class="comment">// 指定的要检测的实例。参数分别是 别名 ip 端口 server异常时需要确认异常的哨兵个数。1表示至少1个setinel实例同时检测到redis server异常时才将redis server的状态判决为"宕机"</span></span><br><span class="line">sentinel monitor mymaster <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">6380</span> <span class="number">1</span> </span><br><span class="line"><span class="comment">// 指定某个sentinel实例监控到某个redis实例持续异常多长时间后，会判决其状态为down。单位毫秒</span></span><br><span class="line">sentinel down-after-milliseconds mymaster <span class="number">60000</span> </span><br><span class="line"><span class="comment">// 若sentinel在该配置值内未能完成failover操作（即故障时master/slave自动切换），则认为本次failover失败</span></span><br><span class="line">sentinel failover-timeout mymaster <span class="number">180000</span> </span><br><span class="line"><span class="comment">// 指定failover过程中，同时被sentinel reconfigure的最大slave实例数。由于reconfigure过程中，对应的slave会中断响应客户端请求，故为避免所有的slave同时不可用，该值需适当配小。</span></span><br><span class="line">sentinel parallel-syncs mymaster <span class="number">1</span></span><br><span class="line"><span class="comment">// know-salve 代表已知的从机</span></span><br><span class="line">sentinel known-slave mymaster <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">6381</span> </span><br><span class="line"><span class="comment">// 同时一时间最多3个slave可同时更新配置</span></span><br><span class="line">sentinel leader-epoch mymaster <span class="number">3</span></span><br></pre></td></tr></tbody></table></figure>
 <p>将Redis源码中的 sentinel.conf 的文件拷贝到/usr/local/redis/conf目录下，修改自身需要的配置选项。</p>
 <h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>对于 redis-sentinel 程序，可以用<code>./redis-sentinel /path/to/sentinel.conf</code>命令来启动 Sentinel 系统。或者使用<code>nohup /usr/local/redis/bin/redis-sentinel /usr/local/redis/conf/sentinel.conf  &amp;</code>不挂断地运行命令。<br>对于 redis-server 程序，可以用<code>./redis-server /path/to/sentinel.conf --sentinel</code>命令来启动一个运行在 Sentinel 模式下的 Redis 服务器。<br>启动完成后我进行了数据验证，下图是验证用到的相关命令（注意redis服务的切换）</p>
-<img src="/2020/05/16/Redis-config/sentinel_look.png" class="" title="验证哨兵功能"> 
+<img src="/2020/05/16/Redis-config/sentinel_look.png" class title="验证哨兵功能"> 
 <p>通过上图的验证我们发现：本来主机是6380可以读写，从服务器是6381只可读。手动杀掉主服务器的运行进程，等待最大持续异常时间（down-after-milliseconds）后，哨兵会将主服务器自动切换成6381，将6380作为6381的备服。即使我们后续将6380再次启动，6380仍是6381的备服，数据只读。这在哨兵的服务进程中也有体现，见下图</p>
-<img src="/2020/05/16/Redis-config/sentinel_work.png" class=""> 
+<img src="/2020/05/16/Redis-config/sentinel_work.png" class> 
 
 <h1 id="主从从配置"><a href="#主从从配置" class="headerlink" title="主从从配置"></a>主从从配置</h1><p>如果让所有的slave节点数据的复制和同步都由master节点来处理，会造成master节点I/O压力过大。所以我们打算将6380作为主服务器，用于写入操作，6381和6382作为备服负责读操作。为了减轻master压力，让6382数据备份来源改成6381，实现主从从模式。</p>
 <h2 id="配置修改"><a href="#配置修改" class="headerlink" title="配置修改"></a>配置修改</h2><h3 id="redis-conf"><a href="#redis-conf" class="headerlink" title="redis.conf"></a>redis.conf</h3><p>确认以下参数：port、pidfile、daemonize、dbfilename和dir。<br>将slaveof选项添加到备服。将6382数据备份来源改成6381，6381的数据备份来源还是6380。6382的部分配置如下</p>
@@ -479,14 +479,14 @@
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su - root </span><br><span class="line">yum -y install ruby ruby-devel rubygems rpm-build</span><br><span class="line">gem install redis</span><br></pre></td></tr></tbody></table></figure>
 <p>或者编译安装。<a href="http://www.ruby-lang.org/en/downloads/" target="_blank" rel="noopener">官方下载地址</a><br> <code>wget https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.7.1.tar.gz --no-check-certificate</code></p>
 <h2 id="搭建集群"><a href="#搭建集群" class="headerlink" title="搭建集群"></a>搭建集群</h2><p>首先启动六个实例，我们可以使用<code>/usr/local/redis/bin/redis-server /usr/local/redis/cluster_conf/7000.conf</code>命令一条条启动，也可以封装到可执行脚本中。<br>启动完成 <code>ps -ef | grep redis</code> 查看如下</p>
-<img src="/2020/05/16/Redis-config/cluster_start.png" class=""> 
+<img src="/2020/05/16/Redis-config/cluster_start.png" class> 
 <p>现在我们已经有了六个正在运行中的 Redis 实例， 接下来我们需要使用这些实例来创建集群， 并为每个节点编写配置文件。<br>通过使用 Redis 集群命令行工具 redis-trib ，编写节点配置文件的工作可以非常容易地完成：redis-trib 位于 Redis 源码的 src 文件夹中，它是一个 Ruby 程序，这个程序通过向实例发送特殊命令来完成创建新集群，检查集群，或者对集群进行重新分片（reshared）等工作。</p>
 <p>创建一个新的集群, 选项–replicas 1 表示我们希望为集群中的每个主节点创建一个从节点。下面命令默认创建7000 7001 7002 为主节点，7003 7004 7005为备节点。<br>低版本使用：<code>./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005</code><br>Redis5.0后不再支持上条命令，需要使用redis-cli来实现。如下<br><code>./redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 --cluster-replicas 1</code><br>之后跟着的其他参数则是这个集群实例的地址列表,3个master3个slave redis-trib 会打印出一份预想中的配置给你看，如果你觉得没问题的话，就可以输入yes，redis-trib 就会将这份配置应用到集群当中,让各个节点开始互相通讯,最后可以得到如下信息：</p>
 <blockquote>
 <p>[OK] All nodes agree about slots configuration.<br>[OK] All 16384 slots covered.</p>
 </blockquote>
 <p>这表示集群中的 16384 个槽都有至少一个主节点在处理， 集群运作正常。此时，我们可以使用<code>redis-cli -c -p 7000</code>命令连接到7000端口的客户端，也可以通过脚本进入。相关验证如下图</p>
-<img src="/2020/05/16/Redis-config/cluster_sess.png" class=""> 
+<img src="/2020/05/16/Redis-config/cluster_sess.png" class> 
 
 <p><span style="font-size: 13px; color: #777;">官方提供了一个自动化脚本,在 redis源码目录的utils文件夹，下面有个create-cluster文件夹，下面有个create-cluster脚本。也可以根据里面的代码进行脚本执行搭建。</span></p>
 <h1 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h1><h2 id="ERR-Slot-xxxxx-is-already-busy-Redis-CommandError"><a href="#ERR-Slot-xxxxx-is-already-busy-Redis-CommandError" class="headerlink" title="ERR Slot xxxxx is already busy (Redis::CommandError)"></a>ERR Slot xxxxx is already busy (Redis::CommandError)</h2><p>如果上一次运行出错，则必须去datadir对应目录去手工删除自动生成的cluster配置文件。</p>
@@ -674,7 +674,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -696,7 +696,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -787,7 +787,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 37.5k 字</span>
+  <span class="post-count">全站共 38.4k 字</span>
 </div>
         
 
